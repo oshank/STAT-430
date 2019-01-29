@@ -87,10 +87,19 @@ $5000-(50)^2=2500$, which is close to the simulation value of `r round(var(min_Y
 Put your answer in this answer block.  Some starting `R` code is provided. 
 
 ```{r}
-## Starting code
+
 set.seed(4302019)
 num_realizations <- 10000
-## Starting code
+
+Y <- rexp(2 * num_realizations, rate = 1 / 100)
+YY <- matrix(Y, 2, num_realizations)
+max_Y <- apply(YY, MAR = 2, FUN = "max") # 1 for rows, 2 for columns
+hist(max_Y, col = "LightBlue", freq = FALSE)
+
+X_grid <- seq(from = 0, to = max(max_Y), length = 1000)
+f_X <- (1 / 50) * exp(-X_grid / 50)
+hist(max_Y, col = "LightBlue", freq = FALSE) 
+lines(X_grid, f_X, lwd = 3, col = "magenta")
 
 ```
 
