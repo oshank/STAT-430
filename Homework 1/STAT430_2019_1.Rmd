@@ -110,6 +110,8 @@ var(max_Y)
 
 ```
 
+
+
 \[
 E(Y_{(n)})=\int_0^\infty y\frac{1}{50}(e^{-y/100} - e^{-y/50})\,dy\approx150, 
 \]
