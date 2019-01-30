@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
   word_document: default
 ---
 
@@ -90,31 +90,52 @@ Put your answer in this answer block.  Some starting `R` code is provided.
 
 set.seed(4302019)
 num_realizations <- 10000
+### a)
+
 
 Y <- rexp(2 * num_realizations, rate = 1 / 100)
 YY <- matrix(Y, 2, num_realizations)
 max_Y <- apply(YY, MAR = 2, FUN = "max") # 1 for rows, 2 for columns
 #hist(max_Y, col = "LightBlue", freq = FALSE)
 
+### b) and c)
 X_grid <- seq(from = 0, to = max(max_Y), length = 1000)
 f_X <- (1 / 50) * (exp(-X_grid / 100) - exp(-X_grid / 50))
 hist(max_Y, col = "LightBlue", freq = FALSE) 
 lines(X_grid, f_X, lwd = 3, col = "magenta")
 
-### d)
-mean(max_Y)
-var(max_Y)
-
-### e)
-
 
 ```
 
+Parts a, b, and c are answered in the code block above.
 
+Part d)
+```{r}
+mean(max_Y)
+var(max_Y)
+```
+Part e)
+This would be the equation for the expected value of the maximum order statistic.
+\[
+E(Y_{(n)})=\int_0^\infty y\frac{1}{50}(e^{-y/100} - e^{-y/50})\,dy = 150
+\]
+
+Here is the second moment of the maximum order statistic.
+\[
+
+E(Y^2_{(n)})=\int_0^\infty y^2\frac{1}{50}(e^{-y/100} - e^{-y/50})\,dy = \frac{\Gamma(3)(100)^3}{50} - \Gamma(3)(50)^2 = 35000
+
+\]
+
+So the variance is,
 
 \[
-E(Y_{(n)})=\int_0^\infty y\frac{1}{50}(e^{-y/100} - e^{-y/50})\,dy\approx150, 
+
+Var(Y_{(n)}) = E(Y_{(n)}^2) - \mu_{Y_{(n)}}^2 = 35000 - 150^2 = 12500
+
 \]
+
+The empirical mean and variance are pretty similar to the theroitical mean and variance. Which makes sense because we had a large number of realizations.
 
 
 *******************************************************************************
