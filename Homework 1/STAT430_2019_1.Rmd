@@ -305,4 +305,11 @@ Then approximate the exact sampling distribution of the range by simulation, dra
 
 **Answer:**
 
+
+```{r}
+
+
+
+```
+
 ******************************************************************************
