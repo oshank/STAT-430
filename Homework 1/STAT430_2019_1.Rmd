@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ---
 output:
   html_document: default
@@ -341,3 +342,197 @@ The pmf of the \[range( Y_1, Y_2)\]
 
 
 ******************************************************************************
+=======
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #1: Due Friday, February 1, 2019. 
+========================================================
+
+#### Name: Oliver Shanklin
+
+*********************************************************************************
+0. This homework assignment is written in `R Markdown` so that you can open this document in `RStudio`, knit the document to run the `R` code provided, answer the questions, add your own `R` code as necessary, and turn in one final, knitted, seamless document with all code, numerical output, graphical output, and documentation in one place. Read (or re-read) Section 6.7 of Wackerly, Mendenhall and Schaeffer.  Also read Sections 7.1-7.3.  
+
+**Example 6.16 via simulation**  This example from the book shows that the minimum of two exponentially distributed random variables is itself exponential.  Let's explore this result via simulation.  We can simulate exponential random variables in `R` using the function `rexp`.  Take a look at the `help` for `rexp`:
+```{r, eval = FALSE}
+help(rexp)
+```
+Notice that this exponential is parameterized with `rate`, where the rate is 1/(expected value).  Let's simulate two *realizations* (simulated random values) of an exponential with `rate = 1 / 100`: 
+```{r}
+Y <- rexp(2, rate = 1 / 100)
+Y
+```
+The minimum order statistic would be 
+```{r}
+min(Y)
+```
+To conduct a simulation experiment, we want to simulate two realizations and take their minimum---then repeat many, many times. We will use the `apply` function to do so.  To illustrate, suppose we want 5 realizations of the minimum.  We'll need 10 exponentials, but let's put them into a matrix with 2 rows and 5 columns:
+```{r}
+num_realizations <- 5
+Y <- rexp(2 * num_realizations, rate = 1 / 100)
+Y
+YY <- matrix(Y, 2, num_realizations)
+YY
+```
+Now we want the minimum of each column, conveniently obtained using the `apply` function:
+```{r}
+min_Y <- apply(YY, MAR = 2, FUN = "min") # 1 for rows, 2 for columns
+min_Y
+```
+Let's crank up the number of realizations to 10000.  Further, let's set our random number seed to 4302019 to make our results reproducible: 
+
+```{r}
+set.seed(4302019)
+num_realizations <- 10000
+Y <- rexp(2 * num_realizations, rate = 1 / 100)
+YY <- matrix(Y, 2, num_realizations)
+min_Y <- apply(YY, MAR = 2, FUN = "min") # 1 for rows, 2 for columns
+hist(min_Y, col = "LightBlue", freq = FALSE) 
+# freq = FALSE so that histogram is normalized to be a density, with area 1
+```
+
+Further, let's add the theoretical probability density function to our histogram.  First, we'll need a fine grid of $x$-values on which to evaluate the function.  Let's use 1000 grid points (this is quite arbitrary as long as the number is large enough: too few and the plot will look piecewise linear; too many is not  a problem, though we won't get visual improvement in the plot.)
+
+```{r}
+X_grid <- seq(from = 0, to = max(min_Y), length = 1000)
+f_X <- (1 / 50) * exp(-X_grid / 50)
+hist(min_Y, col = "LightBlue", freq = FALSE) 
+lines(X_grid, f_X, lwd = 3, col = "magenta")
+```
+
+Finally, we can evaluate the theoretical mean and variance of the minimum order statistic, and compare to the empirical values from our simulation.  Since the theoretical distribution is exponential with theoretical mean equal to $E(Y_{(1)})=50$, its variance is $V(Y_{(1)})=2500$. For completeness, and an example of writing up the answer in \LaTeX, let's do those calculations analytically:
+The theoretical mean of $Y_{(1)}=\min(Y_1,Y_2)$ is 
+\[
+E(Y_{(1)})=\int_0^\infty y\frac{1}{50}e^{-y/50}\,dy=50, 
+\]
+which is close to the simulation value of `r round(mean(min_Y), 2)`.
+The theoretical second moment is 
+\[
+E(Y_{(1)}^2)=\int_0^\infty y^2\frac{1}{50} e^{-y/50}\,dy, 
+\]
+which is a constant times the integral of a Gamma density:
+\[
+\Gamma(3)(50)^2\int_0^\infty \frac{y^{3-1} e^{-y/50}}{\Gamma(3)(50)^3}\,dy=(2)(50)^2=5000.
+\]
+Hence the theoretical variance is 
+$5000-(50)^2=2500$, which is close to the simulation value of `r round(var(min_Y), 2)`. 
+ 
+
+1. **Example 6.17**.  Modify the code above to reproduce the analysis of Example 6.17, for the maximum order statistic of two exponentials, instead of the minimum.  Reset your random number seed to 4302019, then (a) simulate 10000 realizations of the maximum, (b) plot their histogram, (c) add the theoretical probability density function (page 335 of the textbook) to your histogram, (d) compute the empirical mean and variance of the maximum order statistic from your simulation.  Finally, (e) compute the theoretical mean and variance of the maximum order statistic, and compare to your simulation values from (d). 
+
+
+*******************************************************************************
+**Answer:**
+
+Put your answer in this answer block.  Some starting `R` code is provided. 
+
+```{r}
+
+set.seed(4302019)
+num_realizations <- 10000
+
+Y <- rexp(2 * num_realizations, rate = 1 / 100)
+YY <- matrix(Y, 2, num_realizations)
+max_Y <- apply(YY, MAR = 2, FUN = "max") # 1 for rows, 2 for columns
+hist(max_Y, col = "LightBlue", freq = FALSE)
+
+X_grid <- seq(from = 0, to = max(max_Y), length = 1000)
+f_X <- (1 / 50) * exp(-X_grid / 50)
+hist(max_Y, col = "LightBlue", freq = FALSE) 
+lines(X_grid, f_X, lwd = 3, col = "magenta")
+
+
+
+```
+
+*******************************************************************************
+
+2. Complete **Exercise 6.72** of the text.   Assess your results by simulation as follows.  Reset your random number seed to 4302019, then (a) simulate 10000 realizations of the minimum of two Uniform(0,1) random variables (use `runif` in `R`), (b) plot their histogram, (c) add the theoretical probability density function that you derived in 6.72(a) to your histogram, (d) compute the empirical mean and variance of the minimum order statistic from your simulation.  Finally, compare the theoretical values of $E(U_1)$ and $V(U_1)$ that you computed in 6.72(b) to your simulation values from (d). 
+
+
+*******************************************************************************
+
+**Answer:**
+
+```{r}
+set.seed(4302019)
+num_realizations <- 10000
+```
+
+*******************************************************************************
+
+3. Complete **Exercise 6.73** of the text.   Assess your results by simulation as follows.  Reset your random number seed to 4302019, then (a) simulate 10000 realizations of the maximum of two Uniform(0,1) random variables (use `runif` in `R`), (b) plot their histogram, (c) add the theoretical probability density function that you derived in 6.73(a) to your histogram, (d) compute the empirical mean and variance of the maximum order statistic from your simulation.  Finally, compare the theoretical values of $E(U_2)$ and $V(U_2)$ that you computed in 6.73(b) to your simulation values from (d). 
+
+
+*******************************************************************************
+
+**Answer:**
+
+```{r}
+set.seed(4302019)
+num_realizations <- 10000
+```
+
+
+*******************************************************************************
+
+4. Complete **Exercise 6.80** of the text.   Assess your results by simulation for $n=2$ as follows.  Reset your random number seed to 4302019, then (a) simulate 10000 realizations of the maximum of two Beta(2,2) random variables (use `rbeta` in `R` with `shape1 = 2` and `shape2 = 2`), (b) plot their histogram, (c) add the theoretical probability density function that you derived in 6.80(b) to your histogram, (d) compute the empirical mean and variance of the maximum order statistic from your simulation.  Finally, compare the theoretical value of $E(Y_{(2)}$ that you computed in 6.80(c) to your simulation values from (d).
+
+
+*******************************************************************************
+
+**Answer:**
+
+
+```{r}
+set.seed(4302019)
+num_realizations <- 10000
+```
+
+*******************************************************************************
+
+5. In class, we used complete enumeration to study the sampling distribution of the sample mean when drawing an iid sample of size $n=2$ from a population with
+\[
+P(Y_i=1)=P(Y_i=3)=P(Y_i=5)=P(Y_i=15)=1/4.
+\]
+The exact sampling distribution of the sample mean on the integers $1, 2, \ldots, 15$ was shown to be
+\[
+\begin{array}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13& 14 & 15\\\hline
+\frac{1}{16}& \frac{2}{16}&\frac{3}{16}& \frac{2}{16}&\frac{1}{16}&0 & 0 & \frac{2}{16}&\frac{2}{16}& \frac{2}{16}&0 & 0 & 0 & 0 & \frac{1}{16}
+\end{array}
+\]
+Let's compare the exact sampling distribution to an approximation based on simulation: 
+```{r}
+set.seed(4302019)
+num_realizations <- 10000
+Y <- sample(c(1, 3, 5, 15), size = 2 * num_realizations, replace = TRUE)
+YY <- matrix(Y, 2, num_realizations)
+Ybar <- apply(YY, MAR = 2, FUN = "mean")
+# Compute and plot the true probabilities: 
+true_prob <- c(1, 2, 3, 2, 1, 0, 0, 2, 2, 2, 0, 0, 0, 0, 1) / 16
+plot(1:15, true_prob, 
+     ylab = "Probability",
+     xlab = "Sample Mean",
+     type = "b", pch = 16, lwd = 3, col = "magenta")
+lines(sort(unique(Ybar)), table(Ybar) / num_realizations, type = "h", lwd = 3, col = "blue")
+```
+
+Now adapt this example to study the  *range*, 
+\[
+|Y_1-Y_2|=\max\{Y_1, Y_2\} - \min\{Y_1,Y_2\}.
+\]
+Use complete enumeration to give the exact sampling distribution of the range. 
+Then approximate the exact sampling distribution of the range by simulation, drawing 10,000 samples of size $n=2$ from the population.  Compare your exact distribution to your simulation-based approximation with a figure like that given above. 
+
+******************************************************************************
+
+**Answer:**
+
+******************************************************************************
+>>>>>>> Stashed changes
