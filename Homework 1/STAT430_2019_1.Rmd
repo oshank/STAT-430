@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
   word_document: default
 ---
 
@@ -9,7 +9,7 @@ STAT430 Homework #1: Due Friday, February 1, 2019.
 ========================================================
 
 #### Name: Oliver Shanklin
-
+#### Date: 1 February 2019
 *********************************************************************************
 0. This homework assignment is written in `R Markdown` so that you can open this document in `RStudio`, knit the document to run the `R` code provided, answer the questions, add your own `R` code as necessary, and turn in one final, knitted, seamless document with all code, numerical output, graphical output, and documentation in one place. Read (or re-read) Section 6.7 of Wackerly, Mendenhall and Schaeffer.  Also read Sections 7.1-7.3.  
 
