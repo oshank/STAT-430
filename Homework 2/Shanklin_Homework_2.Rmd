@@ -40,7 +40,7 @@ mean(x)             # mean of logical vector is the proportion TRUE
 ```
 This is quite close to the theoretical calculation.  In general, we can approximate the probability of an event by (1) simulating a vector of logical outcomes that are `TRUE` when the event occurs; and (2) computing the mean of the logical vector.  We can use this technique to check an analytical calculation, or to approximate the theoretical answer when the analytical calculation is hard or intractable. For example, suppose we wanted some weird probability like 
 \[
-  P(\ln|Z|>0.5).
+P(\ln|Z|>0.5).
 \]
 We can get a quick, approximate answer via
 ```{r}
@@ -55,18 +55,78 @@ mean(x)                  # mean of logical vector is the proportion TRUE
 1. Complete **Exercise 7.11** of the text, using the `pnorm` function in  `R` to compute the exact, theoretical probability.  Then check your answer using the probability approximation above,  via simulation of 10,000 $N(0,1)$ random variables.  As usual, set your random number seed to 4302019.
 
 *********************************************************************************
-  
-  **Answer:**
-  
-  
-*********************************************************************************
-  
-2. Complete **Exercise 7.12** of the text, finding the appropriate sample size, $n$.  Then assess your results by simulation as follows.  You know that since $Y_1,\ldots,Y_n$ iid N$(\mu,\sigma^2)$, the exact sampling distribution of the sample mean is $\bar Y\sim N(\mu,\sigma^2/n)$.  So reset your random number seed to 4302019 and use the `R` function `rnorm` with arguments `mean = ` $\mu$ (you can choose any real number that doesn't break your computer) and `sd = ` $\sqrt{\sigma^2/n}=\sqrt{4^2/n}$ to generate 10000 simulated $\bar Y$ values  (since we know the exact sampling distribution, we don't have to start by simulating the raw data as in Homework 1: we can actually simulate from the $\bar Y$ distribution directly). With your value of $n$, is $\bar Y$ within 1 square inch of your $\mu$ at least 90% of the time?   Convince yourself that changing the value of $\mu$ does not change your answer.
+
+**Answer:**
+
+```{r}
+set.seed(4302019)
+
+#find the prob that the sample mean will be within 2 sq-in of the population mean
+
+pnorm(1.5) - pnorm(-1.5)
+
+Z <- rnorm(10000)
+x <- (abs(Z) <= 1.5)
+mean(x)
+
+```
+
+\begin{align*}
+P(|\bar Y - \mu| \le 2)&=P\left(-2 \le \bar Y - \mu \le 2\right)\\
+&=P\left(\frac{-2}{4/3} \le \frac{\bar Y - \mu}{S_{\bar Y}} \le \frac{2}{4/3}\right)\\
+&=P\left(-1.5 \le Z \le 1.5\right)\\
+&=pnorm(1.5) - pnorm(-1.5)
+
+\end{align*}
+
+So from the simulation, the probability approximation is $.8712$, and the exact probability using R is $.86638$, which is pretty close.
 
 *********************************************************************************
   
-  **Answer:**
+2. Complete **Exercise 7.12** of the text, finding the appropriate sample size, $n$.  Then assess your results by simulation as follows. You know that since $Y_1,\ldots,Y_n$ iid N$(\mu,\sigma^2)$, the exact sampling distribution of the sample mean is $\bar Y\sim N(\mu,\sigma^2/n)$.  So reset your random number seed to 4302019 and use the `R` function `rnorm` with arguments `mean = ` $\mu$ (you can choose any real number that doesn't break your computer) and `sd = ` $\sqrt{\sigma^2/n}=\sqrt{4^2/n}$ to generate 10000 simulated $\bar Y$ values  (since we know the exact sampling distribution, we don't have to start by simulating the raw data as in Homework 1: we can actually simulate from the $\bar Y$ distribution directly). With your value of $n$, is $\bar Y$ within 1 square inch of your $\mu$ at least 90% of the time?   Convince yourself that changing the value of $\mu$ does not change your answer.
+
+*********************************************************************************
   
+**Answer:**
+
+\begin{align*}
+P\left(|\bar Y - \mu| \le 1\right) = .90\\
+P\left(-1 \le \bar Y - \mu \le 1\right) = .90\\
+P\left(\frac{-1}{4/\sqrt{n}} \le Z \le \frac{1}{4/\sqrt{n}}\right) = .90
+\end{align*}
+
+Since I need to have 5% in the upper and lower tails, I need to get a $qnorm(0.95)$.
+
+```{r}
+qnorm(.95)
+```
+
+Now,
+
+\begin{align*}
+\frac{\sqrt{n}}{4} = .16448\\
+n = 43.2887
+\end{align*}
+
+So, I would round up to $n = 44$, which means we need at least 44 samples to have the probability of 0.90 for the sample mean to be within 1 square inch of the population mean.
+
+
+```{r}
+
+set.seed(4302019)
+
+n = 44
+sd <- sqrt(4^2/n)
+
+Z <- rnorm(10000, 0, sd)
+
+x <- (abs(Z) <= 1)
+mean(x)
+
+```
+
+So, from the simulation, 90.93\% of the samples are within 1 square inch of the mean.
+
 *********************************************************************************
   
   
