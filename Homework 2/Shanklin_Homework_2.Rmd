@@ -225,9 +225,15 @@ that if $Y_1,\ldots,Y_n$ iid $N(\mu,\sigma^2)$, then $P(|\bar Y - \mu|\le\delta)
 
 *********************************************************************************
 **Answer:**
-  
-  
-  
+
+
+
+```{r}
+
+
+```
+
+
 *********************************************************************************
   
 5. Complete **Exercise 7.15** of the text, showing the steps in (a) and (b).  For (c), you can use the function you created above. 
