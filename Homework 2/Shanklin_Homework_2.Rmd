@@ -1,7 +1,7 @@
 ---
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
   word_document: default
 ---
   
@@ -75,8 +75,7 @@ mean(x)
 P(|\bar Y - \mu| \le 2)&=P\left(-2 \le \bar Y - \mu \le 2\right)\\
 &=P\left(\frac{-2}{4/3} \le \frac{\bar Y - \mu}{S_{\bar Y}} \le \frac{2}{4/3}\right)\\
 &=P\left(-1.5 \le Z \le 1.5\right)\\
-&=pnorm(1.5) - pnorm(-1.5)
-
+&=pnorm(1.5) - pnorm(-1.5)\\
 \end{align*}
 
 So from the simulation, the probability approximation is $.8712$, and the exact probability using R is $.86638$, which is pretty close.
@@ -92,7 +91,7 @@ So from the simulation, the probability approximation is $.8712$, and the exact 
 \begin{align*}
 P\left(|\bar Y - \mu| \le 1\right) = .90\\
 P\left(-1 \le \bar Y - \mu \le 1\right) = .90\\
-P\left(\frac{-1}{4/\sqrt{n}} \le Z \le \frac{1}{4/\sqrt{n}}\right) = .90
+P\left(\frac{-1}{4/\sqrt{n}} \le Z \le \frac{1}{4/\sqrt{n}}\right) = .90\\
 \end{align*}
 
 Since I need to have 5% in the upper and lower tails, I need to get a $qnorm(0.95)$.
@@ -105,7 +104,7 @@ Now,
 
 \begin{align*}
 \frac{\sqrt{n}}{4} = .16448\\
-n = 43.2887
+n = 43.2887\\
 \end{align*}
 
 So, I would round up to $n = 44$, which means we need at least 44 samples to have the probability of 0.90 for the sample mean to be within 1 square inch of the population mean.
@@ -159,9 +158,53 @@ Use this new function to complete **Exercise 7.9 and 7.10** of the text. (For 7.
 
 *********************************************************************************
 **Answer:**
-  
-  
-  
+
+```{r}
+set.seed(4302019)
+qprob <- function(delta, sigma, n){
+  prob <- pnorm(delta / sqrt(sigma ^ 2 / n)) - pnorm(-delta / sqrt(sigma ^ 2 / n)) 
+  return(prob)
+}
+```
+
+Exercise 7.9
+```{r}
+## a)
+qprob(.3, 1, 9)
+
+```
+
+```{r}
+## b)
+qprob(.3,1,c(25,36,49,64))
+
+```
+c)
+As $n$ gets larger, you get a higher probablity of the sample mean being with in $0.3$ ounce of the true mean.
+
+d)
+So, from Example 7.3, we see that 42 was not enough samples to acheive 95%, but adding one more to the sample increased that probability to above 95%. Indicating, more samples will have a higher probability to being within $\delta$ of the true population mean.
+
+Exercise 7.10
+```{r}
+## a)
+## using qprob() from above
+qprob(.3,2,9)
+
+```
+```{r}
+## b)
+qprob(.3,2,c(25,26,49,64))
+
+```
+
+c)
+Again, the values of the probablity increase with a larger $n$.
+
+d)
+When the standard deviation is higher, the lower the probablity is for the mean of the samples to be within $0.3$ of the true population mean.
+
+
 *********************************************************************************
   
 4.  In class, we denoted by $z_{\alpha/2}$ the value such that for $Z\sim N(0,1)$, 
