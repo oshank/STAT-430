@@ -229,21 +229,65 @@ that if $Y_1,\ldots,Y_n$ iid $N(\mu,\sigma^2)$, then $P(|\bar Y - \mu|\le\delta)
 
 
 ```{r}
+set.seed(4302019)
 
+nprob <- function(delta, sigma, p){
+  n <- ceiling(((qnorm((1-p)/2)*sigma)/delta)^2)
+  return(n)
+}
+
+```
+Example 7.3
+```{r}
+nprob(.3, 1, .95)
 
 ```
 
 
+Exercise 7.12
+```{r}
+nprob(1, 4, .9)
+
+```
+Exercise 7.14
+
+```{r}
+nprob(.5, sqrt(.4), .95)
+
+```
+7 tests should be ran in order to satisfy the question.
+
+
 *********************************************************************************
-  
+
+\newpage  
 5. Complete **Exercise 7.15** of the text, showing the steps in (a) and (b).  For (c), you can use the function you created above. 
 
 
 *********************************************************************************
+
 **Answer:**
-  
-  
-  
+
+Exercise 7.15
+
+a)
+\[
+E(\bar X - \bar Y) = E(\bar X) - E(\bar Y) = \mu_1 - \mu_2
+\]
+
+b)
+\[
+V(\bar X - \bar Y) = V(\bar X) + V(\bar Y) = \frac{\sigma^2_1}{m} + \frac{\sigma^2_2}{n}
+\]
+
+c)
+```{r}
+nprob(1, sqrt(4.5), .95)
+
+```
+
+
+
 *********************************************************************************
   
   
@@ -262,6 +306,40 @@ Rescale your 10,000 sample variances by multiplying by $3/\sigma^2$, plot the hi
 *********************************************************************************
 **Answer:**
 
+```{r}
+set.seed(4302019)
+
+require(stats)
+tmp <- as.numeric(colnames(crimtab)) / 2.54
+height_inches <- as.numeric(rep(tmp, colSums(crimtab)))
+
+hist(height_inches,freq = FALSE)
+
+varVec <- rep(0,10000)
+for (i in seq(0,10000,1)) {
+  varVec[i]<-var(sample(height_inches, 4, replace = T))
+}
+mean(varVec)
+var(height_inches)
+
+```
+d) The sampling variance is fairly close to the variance of the data set.
+
+e)
+
+```{r}
+varVec2 <- varVec
+for (i in seq(0,10000,1)) {
+  varVec2[i] <- varVec[i]*3/mean(varVec)
+  }
+hist(varVec2, col="lightgreen", breaks = 40, freq = F)
+x_vec <- seq(0,max(varVec2), length = 1000)
+lines(x_vec, lwd="2", col="black", dchisq(x_vec, df = 3))
+plot(ecdf(varVec2))
+lines(x_vec, pchisq(x_vec, df=3), lwd="2", col="black")
+
+```
+
 
 *********************************************************************************
 
@@ -272,19 +350,51 @@ Rescale your 10,000 sample variances by multiplying by $3/\sigma^2$, plot the hi
   
 *********************************************************************************
 **Answer:**
-  
-  
+
+a)
+
+```{r}
+qchisq(c(.005,.01,.025,.05,.1), df= 10 )
+```
+
+b)
+```{r}
+qchisq(df = seq(1,29,1), .05)
+qchisq(df= seq(30,100, 10), .05)
+```
+
+
 *********************************************************************************
   
 8. Complete **Exercise 7.19** in the text.  You can use the `pchisq` function to complete the probability.  Then check your answer by setting the usual seed, simulating 10,000 sample variances under the stated conditions, and checking the empirical proportion of sample variances that are bigger than 0.065.  Also, we know that in theory, $E(S^2)=\sigma^2$, so check that the sample mean of your 10,000 simulated sample variances is approximately $\sigma^2=0.04$, as given in the problem. 
   
   
 *********************************************************************************
-  
+
 **Answer:**
-  
-  
-  
+
+Exercise 7.19
+\[
+Let, X \sim \chi ^2_9,\\ \sigma^2=0.04, \\ n = 10\\
+P(s^2 > 0.065) = P(X > \frac{(n-1)(0.065)}{\sigma^2}) \\
+P(X>14.625) = 1-pchisq(14.625, 9) = 0.10176
+\]
+```{r}
+1-pchisq(14.625,9)
+```
+
+```{r}
+
+# one sample
+
+chi_sample <- rchisq(10, 9)
+chi_sample
+(var(chi_sample)/9)*0.04
+
+```
+
+
+
 *********************************************************************************
   
 9. Suppose that $Y_1,\ldots,Y_n$ are iid $N(\mu,\sigma^2)$ and let $S^2$ denote the sample variance, as usual. (a). Use the fact that $(n-1)S^2/\sigma^2\sim\chi^2$ with $n-1$ df  to determine the theoretical variance of the sample variance, $V(S^2)$.  Show your work. (You can use the fact that a $\chi^2_\nu$ random variable has $V(\chi^2_\nu)=2\nu$.)  (b). Compute the value of your theoretical variance formula using the numbers given in **Exercise 7.19**.  (c).  Check your computed theoretical value in (b) against the empirical variance of your simulated variances from the previous problem, (#8 above). 
