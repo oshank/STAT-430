@@ -374,13 +374,13 @@ qchisq(df= seq(30,100, 10), .05)
 **Answer:**
 
 Exercise 7.19
-\[
-Let, X \sim \chi ^2_9, \\
-\sigma^2=0.04, \\
-n = 10 \\
-P(s^2 > 0.065) = P(\frac{\sigma^2X}{(n-1)} > 0.065) \\
-P(s^2 > 0.065) = 1-pchisq(0.065, 9) = 0.10176
-\]
+
+\[Let, X \sim \chi ^2_9\]
+\[\sigma^2=0.04\]
+\[n = 10\]
+\[P(s^2 > 0.065) = P(\frac{\sigma^2X}{(n-1)} > 0.065)\]
+\[P(s^2 > 0.065) = 1-pchisq(0.065, 9) = 0.10176\]
+
 ```{r}
 1-pchisq(14.625,9)
 ```
@@ -399,6 +399,7 @@ mean(sample_chi)
 
 ```
 
+The proportion of sample variances greater than 0.065 are similar to the actually proportion.
 
 
 *********************************************************************************
@@ -407,6 +408,21 @@ mean(sample_chi)
   
 *********************************************************************************
 **Answer:**
+
+#### a)
+
+\[Let X \sim \chi^2_{(n-1)}\]
+\[X = \frac{S^2(n-1)}{\sigma^2} \implies S^2 = \frac{\sigma^2X}{(n-1)}\]
+
+#### b)
+
+
+
+#### c)
+```{r}
+var(sample_chi)
+
+```
 
 
 
