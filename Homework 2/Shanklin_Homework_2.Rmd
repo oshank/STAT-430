@@ -375,9 +375,11 @@ qchisq(df= seq(30,100, 10), .05)
 
 Exercise 7.19
 \[
-Let, X \sim \chi ^2_9,\\ \sigma^2=0.04, \\ n = 10\\
-P(s^2 > 0.065) = P(X > \frac{(n-1)(0.065)}{\sigma^2}) \\
-P(X>14.625) = 1-pchisq(14.625, 9) = 0.10176
+Let, X \sim \chi ^2_9, \\
+\sigma^2=0.04, \\
+n = 10 \\
+P(s^2 > 0.065) = P(\frac{\sigma^2X}{(n-1)} > 0.065) \\
+P(s^2 > 0.065) = 1-pchisq(0.065, 9) = 0.10176
 \]
 ```{r}
 1-pchisq(14.625,9)
@@ -385,27 +387,19 @@ P(X>14.625) = 1-pchisq(14.625, 9) = 0.10176
 
 ```{r}
 set.seed(4302019)
-# one sample
-chi_data <- matrix(data = 0, nrow=10000, ncol=10)
-var_chi <- numeric(10000)
 
-for(i in seq(1:10000)){
-  
-  chi_sample <- rchisq(10, 9)
-  
-  chi_data[i,]<-chi_sample
-  var_chi[i] <- var(chi_data[i,])
-#(var(chi_sample)/9)*0.04
-}
-
-#var_chi <- (var_chi/9)*.04
-#var_chi <- (var_chi > .065)
-var_chi <- (var_chi > 14.625)
-mean(var_chi)
+sample_chi <- (.04/9)*rchisq(10000, df = 9, ncp=0)
+mean(sample_chi>0.065)
 
 ```
 
-I honestly have no clue what is going on here.
+```{r}
+
+mean(sample_chi)
+
+```
+
+
 
 *********************************************************************************
   
@@ -413,6 +407,7 @@ I honestly have no clue what is going on here.
   
 *********************************************************************************
 **Answer:**
+
 
 
 
