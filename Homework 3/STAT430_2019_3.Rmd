@@ -1,0 +1,98 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #3: Due Friday, February 15, 2019. 
+========================================================
+
+#### Name: 
+
+*********************************************************************************
+0. We finish Chapter 7 in this homework: remainder of **Section 7.2**, **Section 7.3-7.4** on the Central Limit Theorem (CLT), and **Section 7.5** on the normal approximation to the binomial.  First midterm is coming up.  Be sure you are strong so far on distribution of maximum and minimum order statistic; expectation, variance and covariance calculations; normal probability computations; the "origin stories" of the $\chi^2$, $t$, and $F$ distributions; and the Central Limit Theorem and its applications. 
+
+
+1. (a) Use the Central Limit Theorem to establish an approximate normal distribution for a $\chi^2_n$ random variable with $n$ large, specifying the mean and variance of your approximating distribution. (b) Check your normal approximation for each of $n=3, 9, 27, 81$ by (i) setting your random number seed to 4302019 and simulating 10,000 random $\chi^2_n$ random variables; (ii) plotting the empirical cdf of your simulated random variables; and (iii) adding a curve of the approximating normal cdf. (That is, four different empirical cdf's, each with its own approximating normal cdf.) Comment on the quality of your approximation. 
+
+*********************************************************************************
+
+**Answer:**
+
+
+
+*********************************************************************************
+
+2. Complete **Exercise 7.68**, using `R` instead of the suggested applet to compute the exact (binomial) probability and the approximating normal probability. Be sure to use the appropriate continuity correction. 
+
+*********************************************************************************
+
+**Answer:**
+
+
+*********************************************************************************
+
+
+3. Let $Y_1\sim N(1, 1)$, $Y_2\sim N(2, 4)$, and $Y_3\sim N(3, 9)$ be independent random variables.  Use these random variables to construct (a) a $\chi^2$ random variable with 3 degrees of freedom (df); (b) a $t$ random variable with 2 df; (c) an $F$ random variable with 1 numerator df and 2 denominator df; (d) an $F$ random variable with 2 numerator and 1 denominator df. 
+
+*********************************************************************************
+
+**Answer:**
+
+
+
+*********************************************************************************
+
+4. Refer to **Example 7.7**, page 363-364. If we take independent samples of sizes $n_1=6$ and $n_2=10$ from two normal populations with equal population variances, use `R` to find:
+  * (a) $P(S_1^2/S_2^2>2)$; 
+  * (b) $P(S_1^2/S_2^2<0.5)$; and 
+  * (c) the probability that one of the sample variances is at least twice as big as the other.  
+Then check your answers via simulation as follows:
+  * (d) set your random number seed to 4302019, simulate 10,000 $F$ random variables using `rf`, and check (a); 
+  * (e) using the simulated $F$ random variables from (d), check your computation in (b); 
+  * (f) using the simulated $F$ random variables from (d), check your computation in (c).
+
+*********************************************************************************
+
+**Answer:**
+
+
+
+*********************************************************************************
+
+5. Recently, researchers analyzed the 700 most popular songs since 2012 (as ranked on Billboard's Hot 100), and found that a small group of just 10 songwriters was responsible for 23% of these songs. Suppose you sample $n=35$ songs randomly, with replacement, from the 700 most popular songs.  What is the exact probability that  your 35 songs will include at least 11 songs from the small group of songwriters?  What is the approximate probability, using the CLT (with continuity correction)?
+
+*********************************************************************************
+
+**Answer:**
+
+
+*********************************************************************************
+
+6. Complete **Exercise 7.58** of the text.
+
+*********************************************************************************
+
+**Answer:**
+
+
+*********************************************************************************
+
+7. Complete **Exercise 7.62** of the text.
+
+*********************************************************************************
+
+**Answer:**
+
+
+*********************************************************************************
+
+8. Complete **Exercise 7.63** of the text, finding the number of customers $n$ such that the probability that the orders of all $n$ customers can be processed in less than 2 hours is approximately 0.1 (as close as possible, without going over 0.1).
+
+*********************************************************************************
+
+**Answer:**
+
+
+*********************************************************************************
