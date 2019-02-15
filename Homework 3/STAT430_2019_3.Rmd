@@ -37,6 +37,21 @@ STAT430 Homework #3: Due Friday, February 15, 2019.
 **Answer:**
 
 
+### a)
+\begin{align*}
+$$P(Y \ge 29)= 1- P(Y<29)=1-P(Y\le 28) = 1- P(Y\le28.5)$$
+$$=1-P(Z\leq\frac{28.5-50*0.52}{\sqrt{50*.52*.48}})$$
+
+```{r}
+# Approx
+1-pnorm(((28.5-50*.52)/(sqrt(50*.52*.48))),0,1)
+
+# Exact
+1 - pbinom(29,50,.52)
+
+```
+
+
 
 
 *********************************************************************************
@@ -122,6 +137,21 @@ Then check your answers via simulation as follows:
 **Answer:**
 
 
+$$P(X\ge4) = 1-P(X<4)$$
+
+$X_i =$ service time for $i^{th}$ customer.
+
+$$P(\sum_{i=1}^{100}X_i \ge 240) = 1-P(\sum_{i=1}^{100}X_i<240)$$
+$$= 1-P(\bar X \le 2.4)$$
+
+Where, $\bar X \sim N(\mu_{\bar X} = 2.5, \sigma_{\bar X}^2 = 4/100)$
+
+So, after standardizing,
+
+$$1-P(Z \le \frac{2.4 - 2.5}{2/\sqrt{100}} = 1 - P(Z\le -0.5) = 0.6915$$
+
+
+
 *********************************************************************************
 
 8. Complete **Exercise 7.63** of the text, finding the number of customers $n$ such that the probability that the orders of all $n$ customers can be processed in less than 2 hours is approximately 0.1 (as close as possible, without going over 0.1).
@@ -129,6 +159,25 @@ Then check your answers via simulation as follows:
 *********************************************************************************
 
 **Answer:**
+
+\[P(X\leq2(hours))=0.1\]
+\[P(\sum_{i=1}^n X_i \leq 120) = 0.1\]
+\[P(\bar X \leq 120/n) = 0.1\]
+Now Standardize,
+\[P(Z\leq \frac{120/n -2.5}{2/\sqrt{n}}) = 0.1\]
+
+After standardizing, we get that,
+
+\[P(Z\leq -1.28)=0.1\]
+
+So we need to set,
+
+\[\frac{120/n-2.5}{2/\sqrt{2}}=-1.28\]
+
+After using Wolfram Alpha to solve for $n$, we get $n\approx55.638$ and we can round up to $n=56$.
+
+
+
 
 
 *********************************************************************************
