@@ -179,6 +179,18 @@ These results are very similar to the exact probabilities.
 **Answer:**
 
 
+Let $X \sim Bin(35, .23)$
+
+We need $P(X\ge 11)$, or if we standardize it to satisfy CLT,
+$$P(Z \ge \frac{10.5-35*0.23}{\sqrt{35*0.23*0.77}})= P(Z \ge 0.98406) = 1 - P(Z<0.98406)$$
+```{r}
+
+1-pnorm(0.98406,0,1)
+
+```
+
+
+
 *********************************************************************************
 
 6. Complete **Exercise 7.58** of the text.
@@ -186,6 +198,18 @@ These results are very similar to the exact probabilities.
 *********************************************************************************
 
 **Answer:**
+
+
+$W_i = X_i -Y_i , i=1,2,\ldots,n)$ where $W_i$ are independent because $X_i$ and $Y_i$ are independent.
+
+$E(W_i) = E(X_i) - E(Y_i) = \mu_1 - \mu_2 = \mu_W$
+
+$V(W_i) = \sigma_1^2 + \sigma_2^2 = \sigma_W^2 < \infty$
+
+$$U_n = \frac{\bar W - \mu_W}{\sqrt{\sigma_W^2/n}}$$
+
+Since $W_i$ are iid and variance is finite, the $W_i$ follow CLT.
+
 
 
 *********************************************************************************
