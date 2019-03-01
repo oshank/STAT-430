@@ -34,6 +34,21 @@ Use the delta method as described in class to determine the  approximate distrib
 
 **Answer:**
 
+$\bar Y = \frac{Y}{n} = \hat p$ Where, $Y_i \sim Bern(p)$
+
+$\bar Y \sim N(E[y_i], \frac{Var[Y_i]}{n})$
+
+$\hat p = \bar Y = Y/n = \sum Y_i/n$
+$\sum Y_i \sim N(np, np(1-p))$
+
+$ln(\frac{\hat p}{1-\hat p})$ estimates $ln(\frac{p}{1-p})$
+$\hat\lambda = g(\hat p) \sim N(g(p),g^{`}(p)^2*\frac{p(1-p)}{n})$
+
+So,
+
+$\hat\lambda \sim N(ln(p/(1-p)), (\frac{1}{p} + \frac{1}{1-p})^{2}*\frac{p(1-p)}{n})$
+
+$V(\hat\lambda) = (\frac{1}{p} + \frac{1}{1-p})^2 * \frac{p(1-p)}{n} = (\frac{1}{.3} + \frac{1}{.7})^2 * \frac{.3*.7}{100} = \frac{1}{21}$
 
 
 *********************************************************************************
@@ -51,6 +66,23 @@ The ore is to be rejected by the potential buyers if $\bar Y$ exceeds $0.7$. Fin
 *********************************************************************************
 
 **Answer:**
+
+$\bar Y = \frac{\sum Y_i}{n}$
+$E(Y_i) = \int_0^1y*3y^2dy = \frac{3}{4}y^4|_0^1 = \frac{3}{4}$
+$E(\bar Y) = E(\frac{\sum Y_i}{n}) = \frac{1}{n}E(\sum Y_i) = \frac{1}{n}\sum E(Y_i)$
+$= \frac{1}{40}(40)(.75) = 0.75$
+
+Since,
+
+$Var(Y_i) = E(Y_i^2) - E(Y_i)^2 = \int_0^1y^23y^2dy - 0.75^2 = 0.0375$
+
+$Var(\bar Y) = \sigma^2/n = 0.0375/40$
+
+So,
+$\bar Y \sim N(3/4, 3/3200)$
+
+And we are looking for
+$P(\bar Y > 0.7)$ After normalizing, $P(Z>-1.6329) = 0.9484$
 
 
 
@@ -70,8 +102,10 @@ where $\alpha>0$ is a known, fixed value, but $\theta$ is unknown.  Consider the
 *********************************************************************************
 
 **Answer:**
+This would have taken me over an hour just to write up, so here is my handwritten work.
+![](Stat430Problem3a1.jpg){ width=75% }\
 
-
+![](Stat430Problem3a2.jpg){ width=75% }\
 
 *********************************************************************************
 
@@ -84,6 +118,7 @@ where $\alpha>0$ is a known, fixed value, but $\theta$ is unknown.  Consider the
 
 **Answer:**
 
+![](Stat430Problem3b.jpg){ width=75% }\
 
 
 ********************************************************************************
@@ -109,6 +144,12 @@ YY <- matrix(Y, n, nreps)                  # arrange into matrix with random sam
 
 **Answer:**
 
+```{r}
+
+
+
+```
+
 
 *********************************************************************************
 
@@ -121,6 +162,17 @@ YY <- matrix(Y, n, nreps)                  # arrange into matrix with random sam
 **Answer:**
 
 
+#### a)
+
+Since $\hat\theta$ is unbiased, $B(\hat\theta) = E(\hat\theta) - \theta =0$
+
+#### b)
+
+If $B(\hat\theta) = 5$ then,
+
+$5 = E(\hat\theta) - \theta$
+$E(\hat\theta) = 5+\theta$
+
 *********************************************************************************
 
 5. Complete **Exercise 8.6** of the text.  If $\sigma_2^2$ is much larger than $\sigma_1^2$, does your answer make sense?  What if $\sigma_2^2$ is much smaller than $\sigma_1^2$?
@@ -129,6 +181,23 @@ YY <- matrix(Y, n, nreps)                  # arrange into matrix with random sam
 
 **Answer:**
 
+#### a)
+
+Show $B(\hat\theta_3) = 0$
+
+$B(\hat\theta_3) = E(\hat\theta_3) - \theta$
+$B(\hat\theta_3) = E(a\hat\theta_1 + (1-a)\hat\theta_2) - \theta$
+Using properties of Expected Values,
+
+$B(\hat\theta_3) = a\theta +(\theta - a\theta) - \theta = 0$
+
+#### b)
+
+$Var(\hat\theta_3) = Var(a\hat\theta_1 + (1-a)\hat\theta_2)$
+$Var(\hat\theta_3) = a^2Var(\hat\theta_1) + (1-a)^2Var(\hat\theta_2)$
+$Var(\hat\theta_3) = a^2\sigma_1^2 + (1-a^2)\sigma_2^2$
+
+We would want a to be 0.5 to minimize the variance.
 
 
 *********************************************************************************
@@ -139,6 +208,8 @@ YY <- matrix(Y, n, nreps)                  # arrange into matrix with random sam
 
 **Answer:**
 
+![](stat430Problem6b.jpg){ width=75% }\
+![](stat430Problem6a.jpg){ width=75% }\
 
 *********************************************************************************
 
@@ -161,9 +232,25 @@ abline(h = theta, lwd = 3, col = "red")
 *********************************************************************************
 
 **Answer:**
-
-
-
+```{r}
+theta <- 10
+set.seed(4302019)
+Y <- rexp(3 * 10000, rate = 1 / theta)
+YY <- matrix(Y, 3, 10000)
+theta_hat1 <- YY[1, ]                  # Y_1 only
+theta_hat2 <- (YY[1, ] + YY[2, ]) / 2  # (Y_1 + Y_2) / 2
+theta_hat3 <- (YY[1, ] + 2*YY[2, ]) / 3
+theta_hat4 <- apply(YY, MARGIN = 2, FUN = min)
+theta_hat5 <- apply(YY, MARGIN = 2, FUN = mean)
+var(theta_hat1)
+var(theta_hat2)
+var(theta_hat3)
+var(theta_hat4)
+var(theta_hat5)
+# Side-by-side boxplots to compare estimators (you can add more estimators, separated by commas):
+boxplot(theta_hat1, theta_hat2, theta_hat3, theta_hat4, theta_hat5, col = "LightBlue", names = c(expression(hat(theta)[1]), expression(hat(theta)[2]), expression(hat(theta)[3]), expression(hat(theta)[4]), expression(hat(theta)[5])))
+abline(h = theta, lwd = 3, col = "red")
+```
 
 *********************************************************************************
 
