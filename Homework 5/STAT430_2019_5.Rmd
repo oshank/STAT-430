@@ -59,7 +59,7 @@ Y <- c(97.91, 98.81, 97.42, 98.01, 98.25, 98.18, 98.90, 98.25, 99.59, 98.50, 98.
 
 **Answer:**
 
-This is the generic 90% CI for \bar Y
+This is the generic 90% CI for $\bar Y$
 
 \[
 \bar Y \pm t_{\alpha/2,n-1}\sqrt{S^2/n}
@@ -78,7 +78,7 @@ lower
 upper
 ```
 
-So a 90% CI for \bar Y is,
+So a 90% CI for $\bar Y$ is,
 \[
 [98.15985, 98.6914]
 \]
