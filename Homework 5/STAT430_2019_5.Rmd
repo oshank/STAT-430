@@ -70,8 +70,8 @@ Y <- c(97.91, 98.81, 97.42, 98.01, 98.25, 98.18, 98.90, 98.25, 99.59, 98.50, 98.
 
 Y_bar <- mean(Y)
 
-lower <- Y_bar + qt(.05,length(Y))*sqrt(var(Y)/length(Y))
-upper <- Y_bar - qt(.05,length(Y))*sqrt(var(Y)/length(Y))
+lower <- Y_bar + qt(.05,length(Y)-1)*sqrt(var(Y)/length(Y))
+upper <- Y_bar - qt(.05,length(Y)-1)*sqrt(var(Y)/length(Y))
 
 
 lower
@@ -101,8 +101,8 @@ Y <- (5/9)*(X -32)
 
 Y_bar <- mean(Y)
 
-lower <- Y_bar + qt(.05,length(Y))*sqrt(var(Y)/length(Y))
-upper <- Y_bar - qt(.05,length(Y))*sqrt(var(Y)/length(Y))
+lower <- Y_bar + qt(.05,length(Y)-1)*sqrt(var(Y)/length(Y))
+upper <- Y_bar - qt(.05,length(Y)-1)*sqrt(var(Y)/length(Y))
 
 
 lower
@@ -167,6 +167,40 @@ segments(x[too_low], theta_hat_L[too_low], x[too_low], theta_hat_U[too_low], col
 abline(h = theta, col = "blue", lwd = 2)
 ```
 
+The proportion of coverage is 0.885 when n = 10.
+
+
+```{r}
+nreps <- 200
+theta <- 10
+n <- 100
+alpha <- 0.1
+set.seed(4302019)
+Y <- rnorm(n * nreps, mean = theta, sd = 1)
+YY <- matrix(Y, n, nreps)  # nreps iid samples of size n, one in each column
+sample_mean <- apply(YY, MAR = 2, FUN = "mean")  # sample mean, Ybar, for each column
+sample_var  <- apply(YY, MAR = 2, FUN = "var")   # sample variance, S^2, for each column
+# Compute lower confidence limit, using quantile from t distribution
+theta_hat_L <- sample_mean + qt(alpha / 2, df = n - 1) * sqrt(sample_var / n)      
+# Compute upper confidence limitk using quantile from t distribution
+theta_hat_U <- sample_mean + qt(1 - alpha / 2, df = n - 1) * sqrt(sample_var / n) 
+too_high <- (theta < theta_hat_L)  # CI is too high and missed theta
+too_low  <- (theta > theta_hat_U)  # CI is too low and missed theta
+mean(too_low + too_high)      # proportion of misses should be close to alpha
+1 - mean(too_low + too_high)  # proportion of hits should be close to 1 - alpha
+# Plot the CIs.
+plot(c(0,1), c(min(theta_hat_L), max(theta_hat_U)), type = "n", 
+     xlab = paste(nreps, "replicates of confidence intervals"), ylab = "", xaxt = "n")
+x <- (1:nreps) / nreps  # index for each of the nreps CIs
+segments(x, theta_hat_L, x, theta_hat_U)
+segments(x[too_high], theta_hat_L[too_high], x[too_high], theta_hat_U[too_high], col = "red")
+segments(x[too_low], theta_hat_L[too_low], x[too_low], theta_hat_U[too_low], col = "green")
+abline(h = theta, col = "blue", lwd = 2)
+```
+When n = 100, the proportion of coverage is 0.89. So, as n increases the coverage converges to 0.9 because we want to get 90% CI.
+
+
+
 *********************************************************************************
 
 3. In class, we considered the sampling experiment in which $Y_1,\ldots,Y_n$ iid $N(\mu,\sigma^2)$, with $\theta=\sigma^2$ as our target.  The pivot used to produce the CI is 
@@ -182,6 +216,39 @@ Modify the code from problem 2 above to compute and plot `nreps=200` 95% confide
 *********************************************************************************
 
 **Answer:**
+
+```{r}
+nreps <- 200
+theta <- 1
+n <- 20
+alpha <- 0.05
+set.seed(4302019)
+Y <- rnorm(n * nreps, mean = 10, sd = theta)
+YY <- matrix(Y, n, nreps)  # nreps iid samples of size n, one in each column
+sample_mean <- apply(YY, MAR = 2, FUN = "mean")  # sample mean, Ybar, for each column
+sample_var  <- apply(YY, MAR = 2, FUN = "var")   # sample variance, S^2, for each column
+# Compute lower confidence limit, using quantile from t distribution
+theta_hat_L <- sample_var*(n-1)/qchisq(1-alpha / 2, df = n - 1)    
+# Compute upper confidence limitk using quantile from t distribution
+theta_hat_U <- sample_var*(n-1)/qchisq(alpha / 2, df = n - 1)
+too_high <- (theta < theta_hat_L)  # CI is too high and missed theta
+too_low  <- (theta > theta_hat_U)  # CI is too low and missed theta
+mean(too_low + too_high)      # proportion of misses should be close to alpha
+1 - mean(too_low + too_high)  # proportion of hits should be close to 1 - alpha
+# Plot the CIs.
+plot(c(0,1), c(min(theta_hat_L), max(theta_hat_U)), type = "n", 
+     xlab = paste(nreps, "replicates of confidence intervals"), ylab = "", xaxt = "n")
+x <- (1:nreps) / nreps  # index for each of the nreps CIs
+segments(x, theta_hat_L, x, theta_hat_U)
+segments(x[too_high], theta_hat_L[too_high], x[too_high], theta_hat_U[too_high], col = "red")
+segments(x[too_low], theta_hat_L[too_low], x[too_low], theta_hat_U[too_low], col = "green")
+abline(h = theta, col = "blue", lwd = 2)
+
+```
+
+so $0.945$ is the proportion of coverage by the simulation.
+
+
 
 
 ********************************************************************************
@@ -226,6 +293,36 @@ is a valid $(1-\alpha)100$% CI.
 
 **Answer:**
 
+```{r}
+
+nreps <- 200
+theta <- 1
+n <- 20
+alpha <- 0.05
+set.seed(4302019)
+Y <- rnorm(n * nreps, mean = 10, sd = theta)
+YY <- matrix(Y, n, nreps)  # nreps iid samples of size n, one in each column
+sample_mean <- apply(YY, MAR = 2, FUN = "mean")  # sample mean, Ybar, for each column
+sample_var  <- apply(YY, MAR = 2, FUN = "var")   # sample variance, S^2, for each column
+# Compute lower confidence limit, using quantile from t distribution
+theta_hat_L <- 0    
+# Compute upper confidence limitk using quantile from t distribution
+theta_hat_U <- sample_var*(n-1)/qchisq(alpha, df = n - 1)
+too_high <- (theta < theta_hat_L)  # CI is too high and missed theta
+too_low  <- (theta > theta_hat_U)  # CI is too low and missed theta
+mean(too_low + too_high)      # proportion of misses should be close to alpha
+1 - mean(too_low + too_high)  # proportion of hits should be close to 1 - alpha
+# Plot the CIs.
+plot(c(0,1), c(min(theta_hat_L), max(theta_hat_U)), type = "n", 
+     xlab = paste(nreps, "replicates of confidence intervals"), ylab = "", xaxt = "n")
+x <- (1:nreps) / nreps  # index for each of the nreps CIs
+segments(x, theta_hat_L, x, theta_hat_U)
+segments(x[too_high], theta_hat_L[too_high], x[too_high], theta_hat_U[too_high], col = "red")
+segments(x[too_low], theta_hat_L[too_low], x[too_low], theta_hat_U[too_low], col = "green")
+abline(h = theta, col = "blue", lwd = 2)
+
+
+```
 
 
 *************************************************************************************************
@@ -236,6 +333,65 @@ is a valid $(1-\alpha)100$% CI.
 
 **Answer:**
 
+#### a)
+
+\[
+0.95 = P(\hat\theta_L \le \theta \le \hat\theta_U)
+\]
+
+Where the target is $\theta = \mu$
+
+Pivot:
+
+$Q = \frac{Y-\theta}{\sigma} \sim N(0,1)$, where $\sigma = 1$
+
+Quantiles:
+
+$1-\alpha = P(q_{\alpha/2} \le Q \le q_{1-\alpha/2}) = P(Y-q_{\alpha/2}\ge\theta\ge Y - q_{1-\alpha/2})$
+
+Report:
+
+$$[Y-q_{1-\alpha/2}, Y-q_{\alpha/2}]$$
+
+is a 95% CI for $\mu$ where $q_{\alpha/2} = -1.96$
+
+So, we get
+
+$$[Y-1.96, Y+1.96]$$
+
+#### b)
+
+\[
+0.95 = P(Q\le q_\alpha)
+\]
+
+\[
+0.95 = P(\theta\le 1.645 +Y)
+\]
+
+So,
+
+$$(-\infty, 1.645 +Y]$$
+
+is a 95% upper confidence limit for $\mu$
+
+
+#### c)
+
+\[
+0.95 = P(Q\ge q_\alpha)
+\]
+
+\[
+0.95 = P(\theta\ge -1.645 +Y)
+\]
+
+
+So,
+
+$$[-1.645 + Y, \infty)$$
+
+is a 95% lower confidence limit for $\mu$
 
 
 ************************************************************************************************
@@ -245,6 +401,32 @@ is a valid $(1-\alpha)100$% CI.
 ************************************************************************************************
 
 **Answer:**
+
+#### a)
+
+
+$$F_Y(y) = \int^y_0 \frac{2(\theta -t)}{\theta^2}dt = \frac{2y}{\theta} - \frac{y^2}{\theta^2}$$
+
+
+#### b)
+
+\[
+Q = \frac{Y}{\theta}
+\]
+
+Using the CDF method,
+
+\[
+P(\frac{Y}{\theta} \le y) = P(Y \le \theta y)
+\]
+
+Now plug in $\theta y$ in to the CDF of Y
+
+$$F_Y(\theta y) = \frac{2\theta y}{\theta} - \frac{(\theta y)^2}{\theta^2} = 2y - y^2 = F_{\frac{Y}{\theta}}(y)$$
+
+Which does not depend on $\theta$ so $Q$ is a valid pivot.
+
+
 
 
 
@@ -261,6 +443,44 @@ where $F_Q(y)$ is the cumulative distribution function of the random variable, $
 **Answer:**
 
 
+So we know,
+
+$\alpha = 2 q_{\alpha} - q^{2}_{\alpha}$
+
+
+```{r}
+
+q_solve <- function(alpha){
+  
+  polyroot(c(1,-2, alpha))
+  
+}
+
+q_solve(0.025)
+q_solve(0.05)
+q_solve(.1)
+q_solve(.9)
+q_solve(.95)
+q_solve(.975)
+
+
+```
+So, here is the quantiles
+
+$q_{0.025} = 0.503$
+
+$q_{0.05} = 0.506$
+
+$q_{0.1} = 0.513$
+
+$q_{0.9} = 0.759$
+
+$q_{0.95} = 0.8172$
+
+$q_{0.975} = 0.8635$
+
+
+
 **************************************************************************************************
 
 6(d).  Use your computed quantiles and pivotal quantity to compute a 90% two-sided confidence interval for $\theta$.
@@ -268,6 +488,13 @@ where $F_Q(y)$ is the cumulative distribution function of the random variable, $
 ************************************************************************************************
 
 **Answer:**
+
+
+$$ 0.9 = P(q_{0.05}\le Q \le q_{0.95}) = P(\frac{Y}{q_{0.95}} \le \theta \le \frac{Y}{q_{0.05}}) $$
+
+So a 90% CI is
+
+$$[\frac{Y}{0.8172},\frac{Y}{0.506}]$$
 
 
 
@@ -280,6 +507,9 @@ where $F_Q(y)$ is the cumulative distribution function of the random variable, $
 
 **Answer:**
 
+$$[-\infty, \frac{Y}{0.759}]$$
+
+
 
 ************************************************************************************************
 
@@ -289,6 +519,9 @@ where $F_Q(y)$ is the cumulative distribution function of the random variable, $
 ************************************************************************************************
 
 **Answer:**
+
+![](stat430hw5p7a.jpg){ width=75% }\
+![](stat430hw5p7b.jpg){ width=75% }\
 
 
 ************************************************************************************************
