@@ -18,42 +18,103 @@ STAT430 Homework #5: Due Friday, March 8, 2019.
 (a) Find a $(1-\alpha)$ 100% confidence interval for the new target parameter $a+b\theta$, where $a$ is a known real number and $b>0$ is a known real number. 
 
 *********************************************************************************
-  
-  **Answer:**
-  
+
+**Answer:**
+
+\[
+1 - \alpha = P(\hat\theta_L \le a+ b\theta \le \hat\theta_U), b>0
+\]
+\[
+= P(\frac{\hat\theta_L - a}{b} \le \theta \le \frac{\hat\theta_U -  a}{b})
+\]
+\[[\frac{\hat\theta_L -a}{b},\frac{\hat\theta_U -a}{b}]\]
+
+
 
 *********************************************************************************
   
-  (b) Find a $(1-\alpha)$ 100% confidence interval for the new target parameter $a+b\theta$, where $a$ is a known real number and $b<0$ is a known real number. 
-
-*********************************************************************************
-  
-  **Answer:**
-  
+(b) Find a $(1-\alpha)$ 100% confidence interval for the new target parameter $a+b\theta$, where $a$ is a known real number and $b<0$ is a known real number. 
 
 *********************************************************************************
 
-  (c). Suppose $Y_1,\ldots,Y_{16}$ are iid $N(\mu,\sigma^2)$ and are measured in degrees Fahrenheit.  
-    Form a 90% confidence interval for the true mean $\mu$ if the realized data are as follows: 
+**Answer:**
+
+\[
+1-\alpha = P(\hat\theta_L \le a+b\theta \le \hat\theta_U), b<0
+\]
+\[
+= P(\frac{\hat\theta_L - a}{b}\ge \theta \ge \frac{\hat\theta_U-a}{b})
+\]
+\[[\frac{\hat\theta_U -a}{b},\frac{\hat\theta_L -a}{b}]\]
+
+*********************************************************************************
+
+(c). Suppose $Y_1,\ldots,Y_{16}$ are iid $N(\mu,\sigma^2)$ and are measured in degrees Fahrenheit.  
+Form a 90% confidence interval for the true mean $\mu$ if the realized data are as follows: 
 ```{r}
 Y <- c(97.91, 98.81, 97.42, 98.01, 98.25, 98.18, 98.90, 98.25, 99.59, 98.50, 98.60, 97.92, 97.48, 99.21, 98.77, 99.01)
 ```
+
 *********************************************************************************
 
 **Answer:**
 
+This is the generic 90% CI for \bar Y
+
+\[
+\bar Y \pm t_{\alpha/2,n-1}\sqrt{S^2/n}
+\]
+
+```{r}
+Y <- c(97.91, 98.81, 97.42, 98.01, 98.25, 98.18, 98.90, 98.25, 99.59, 98.50, 98.60, 97.92, 97.48, 99.21, 98.77, 99.01)
+
+Y_bar <- mean(Y)
+
+lower <- Y_bar + qt(.05,length(Y))*sqrt(var(Y)/length(Y))
+upper <- Y_bar - qt(.05,length(Y))*sqrt(var(Y)/length(Y))
+
+
+lower
+upper
+```
+
+So a 90% CI for \bar Y is,
+\[
+[98.15985, 98.6914]
+\]
+
 
 *********************************************************************************
 
-  (d). Suppose we are interested in the true mean in degrees Celsius = (5/9) * (Fahrenheit - 32),  instead of Fahrenheit.  Use the data in part (c) to compute a 
-  90% confidence interval for the true mean in degrees Celsius. 
+(d). Suppose we are interested in the true mean in degrees Celsius = (5/9) * (Fahrenheit - 32),  instead of Fahrenheit.  Use the data in part (c) to compute a 90% confidence interval for the true mean in degrees Celsius. 
   
 
 *********************************************************************************
 
 **Answer:**
 
-  
+```{r}
+
+X <- c(97.91, 98.81, 97.42, 98.01, 98.25, 98.18, 98.90, 98.25, 99.59, 98.50, 98.60, 97.92, 97.48, 99.21, 98.77, 99.01)
+
+Y <- (5/9)*(X -32)
+
+Y_bar <- mean(Y)
+
+lower <- Y_bar + qt(.05,length(Y))*sqrt(var(Y)/length(Y))
+upper <- Y_bar - qt(.05,length(Y))*sqrt(var(Y)/length(Y))
+
+
+lower
+upper
+
+```
+
+So a 90% CI for the temperature in Celsius is,
+
+\[
+[36.75547, 37.05078]
+\]
 
 *********************************************************************************
 
@@ -140,6 +201,9 @@ is a valid $(1-\alpha)$ 100% confidence interval for $\sigma^2$.
 *********************************************************************************
 
 **Answer:**
+
+
+
 
 
 
