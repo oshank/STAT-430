@@ -21,14 +21,20 @@ STAT430 Homework #6: Due Friday, March 29, 2019 (after break).
   
 **Answer:**
 
-$$\theta = p, \hat\theta = \hat p = Y/n \sim N(p, \frac{p(1-p)}{n})$$
-$$\hat\sigma^2_{\hat\theta} = \frac{\hat p (1-\hat p)}{n}$$
+\[
+\theta = p, \hat\theta = \hat p = Y/n \sim N(p, \frac{p(1-p)}{n})
+\]
+\[
+\hat\sigma^2_{\hat\theta} = \frac{\hat p (1-\hat p)}{n}
+\]
 
 Where $Z_{\alpha/2} = 2.33$.
 
 A 98% CI for $\theta = p$ is
 
-$$[0.409,0.4909]$$
+\[
+[0.409,0.4909]
+\]
 
 The interval does not include 0.50 so a majority of adults do not think that movies are getting better.
 
@@ -43,13 +49,20 @@ The interval does not include 0.50 so a majority of adults do not think that mov
 For a 99% CI, $Z_{\alpha/2} = 2.57$
 
 $\theta = \mu$
-$$\hat\theta = \bar Y \sim N(\mu,\sigma^2 / n)$$
 
-$$\hat\sigma^2_{\hat\theta} = S^2 / n$$
+\[
+\hat\theta = \bar Y \sim N(\mu,\sigma^2 / n)
+\]
+
+\[
+\hat\sigma^2_{\hat\theta} = S^2 / n
+\]
 
 So a 99% CI for $\theta = \mu$ is 
 
-$$[98.0855, 98.4145]$$
+\[
+[98.0855, 98.4145]
+\]
 
 This interval does not include 98.6 so everyone is cold all the time.
 
@@ -64,21 +77,29 @@ This interval does not include 98.6 so everyone is cold all the time.
 **Answer:**
 
 $\theta = ln(p_1/p_2) = ln(p_1) - ln(p_2)$
+
 $\hat\theta = ln(\hat p_1) - ln(\hat p_2)$
 
 Where, $ln(p_1) \sim N(p_1, (1-p_1)/(n_1 p_1)$
 
 So,
 
-$$\hat\theta \sim N(ln(p_1)- ln(p_2), \frac{1-p_1}{n_1p_1} + \frac{1-p_2}{n_2p_2})$$
+\[
+\hat\theta \sim N(ln(p_1)- ln(p_2), \frac{1-p_1}{n_1p_1} + \frac{1-p_2}{n_2p_2})
+\]
+
 
 A 99% CI for the log-relative-risk is,
 
-$$[0.28577,0.90949]$$
+\[
+[0.28577,0.90949]
+\]
 
 And when we exponentiate, we get the relative risk,
 
-$$[1.33,2.48]$$
+\[
+[1.33,2.48]
+\]
 and this shows that $p_1$ has a higher success rate than $p_2$.
 
 
@@ -91,6 +112,7 @@ are defined as
 \frac{\mbox{probability of success}}{\mbox{probability of failure}}
 \]
 Now suppose that $Y_1\sim$   Binomial$(n_1,p_1)$, independent of $Y_2\sim$   Binomial$(n_2,p_2)$, where both $n_1$ and $n_2$ are large.  The **odds ratio** is defined as 
+
 \[
 \frac{\mbox{odds in group 1}}{\mbox{odds in group 2}}=\frac{p_1/(1-p_1)}{p_2/(1-p_2)}.
 \]
@@ -106,6 +128,24 @@ Construct an approximate $(1-\alpha)$ 100% confidence interval for the log-odds 
 
 **Answer:**
 
+\[
+\theta = ln(p_1/(1-p_1)) - ln (p_2/(1-p_2))
+\]
+
+\[
+\hat\theta = ln(\hat p_1/(1-\hat p_1))- ln(\hat p_2/(1-\hat p_2))
+\]
+
+\[
+\hat\theta \sim N(ln(\hat p_1/(1-\hat p_1))- ln(\hat p_2/(1-\hat p_2)),\frac{1}{n_1p_1} + \frac{1}{n_1(1-p_1)} + \frac{1}{n_2p_2} + \frac{1}{n_2(1-p_2)})
+\]
+
+So the $(1-\alpha)100\%$ CI for the log odds ratio is,
+
+\[
+[ln(\hat p_1/(1-\hat p_1))- ln(\hat p_2/(1-\hat p_2)) \pm Z_{\alpha/2}\sqrt{\frac{1}{n_1p_1} + \frac{1}{n_1(1-p_1)} + \frac{1}{n_2p_2} + \frac{1}{n_2(1-p_2)}}]
+\]
+
 
 
 *********************************************************************************
@@ -118,12 +158,26 @@ Construct an approximate $(1-\alpha)$ 100% confidence interval for the log-odds 
 **Answer:**
 
 
+$\hat p_1=54/114$
+
+$\hat p_2=89/334$
+
+$Z_{\alpha/2} = 1.96$
+
+\[
+[ln(54/114)-ln(89/334) \pm 1.96*\sqrt{\frac{1}{114*54/114} + \frac{1}{114(1-54/114)} + \frac{1}{334*89/334} + \frac{1}{334(1-89/334)}}]
+\]
+\[
+\implies [0.72125, 1.09326]
+\]
+
+Which is the log-odds-ratio, and even if I exponentiate, the interval is way off, so my variance is probably incorrect.
 
 ************************************************************************************************
 
 5. In baseball, a *complete game* is one in which a single pitcher does all of the pitching for one team, without the benefit of a relief pitcher.  A *complete game shutout* is one in which that pitcher allows no runs by the opposing team.  Such games are rare.  For the 2016 Major League Baseball (MLB) season, there were 36 complete game shutouts out of 2,427 games played. The dataset `2016_MLB_Pitching.csv` contains pitching statistics for each of the 30 MLB teams for the 2016 season, including the number of complete game shutouts (`cSho`) for each team.  If you put the dataset in a subfolder called `Data` of the homework folder where this markdown file is stored, you can read it as follows:     
 ```{r}
-MLB <- read.csv("Data/2016_MLB_Pitching.csv", header = TRUE) # read in the dataset and call it MLB
+MLB <- read.csv("2016_MLB_Pitching.csv", header = TRUE) # read in the dataset and call it MLB
 head(MLB)        # look at the first few lines of the dataset
 table(MLB$cSho)  # table the values of the variable cSho in the MLB dataset
 ```
