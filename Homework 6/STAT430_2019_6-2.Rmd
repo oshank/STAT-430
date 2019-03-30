@@ -8,7 +8,7 @@ output:
 STAT430 Homework #6: Due Friday, March 29, 2019 (after break). 
 ========================================================
 
-#### Name: 
+#### Name: Oliver Shanklin
 
 *********************************************************************************
 0. We will continue with **Chapter 8** on estimation.  You should have read **Sections 8.1-8.4** on point estimation; please continue with **Sections 8.5-8.10** on interval estimation and related topics.   
