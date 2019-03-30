@@ -21,6 +21,16 @@ STAT430 Homework #6: Due Friday, March 29, 2019 (after break).
   
 **Answer:**
 
+$$\theta = p, \hat\theta = \hat p = Y/n \sim N(p, \frac{p(1-p)}{n})$$
+$$\hat\sigma^2_{\hat\theta} = \frac{\hat p (1-\hat p)}{n}$$
+
+Where $Z_{\alpha/2} = 2.33$.
+
+A 98% CI for $\theta = p$ is
+
+$$[0.409,0.4909]$$
+
+The interval does not include 0.50 so a majority of adults do not think that movies are getting better.
 
 
 *********************************************************************************
@@ -29,6 +39,19 @@ STAT430 Homework #6: Due Friday, March 29, 2019 (after break).
 *********************************************************************************
 
 **Answer:**
+
+For a 99% CI, $Z_{\alpha/2} = 2.57$
+
+$\theta = \mu$
+$$\hat\theta = \bar Y \sim N(\mu,\sigma^2 / n)$$
+
+$$\hat\sigma^2_{\hat\theta} = S^2 / n$$
+
+So a 99% CI for $\theta = \mu$ is 
+
+$$[98.0855, 98.4145]$$
+
+This interval does not include 98.6 so everyone is cold all the time.
 
 
 
@@ -39,6 +62,24 @@ STAT430 Homework #6: Due Friday, March 29, 2019 (after break).
 *********************************************************************************
 
 **Answer:**
+
+$\theta = ln(p_1/p_2) = ln(p_1) - ln(p_2)$
+$\hat\theta = ln(\hat p_1) - ln(\hat p_2)$
+
+Where, $ln(p_1) \sim N(p_1, (1-p_1)/(n_1 p_1)$
+
+So,
+
+$$\hat\theta \sim N(ln(p_1)- ln(p_2), \frac{1-p_1}{n_1p_1} + \frac{1-p_2}{n_2p_2})$$
+
+A 99% CI for the log-relative-risk is,
+
+$$[0.28577,0.90949]$$
+
+And when we exponentiate, we get the relative risk,
+
+$$[1.33,2.48]$$
+and this shows that $p_1$ has a higher success rate than $p_2$.
 
 
  
