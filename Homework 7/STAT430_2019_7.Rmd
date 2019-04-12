@@ -1,0 +1,200 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #7: Due Friday, April 12, 2019. 
+========================================================
+
+#### Name: Oliver Shanklin 
+
+*********************************************************************************
+0. We will continue with **Chapter 9** on estimation.     
+
+
+
+1. (a). Complete **Exercise 9.2** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+#### Part a)
+
+
+\begin{align*}
+B(\hat\mu_1) &=  E(\hat\mu_1) - \mu \\ 
+& = E(\frac{Y_1 + Y_2}{2}) - \mu \\
+& = \frac{1}{2}(E(Y_1) + E(Y_2)) - \mu \\
+& = \frac{1}{2}(\mu + \mu) - \mu \\
+& = 0
+\end{align*}
+
+
+
+\begin{align*}
+B(\hat\mu_2) &=  E(\hat\mu_2) - \mu \\ 
+& = E(\frac{1}{4}Y_1 + \frac{Y_2 + \dots + Y_{n-1}}{2(n-2)} + \frac{1}{4}Y_n) - \mu \\
+& = \frac{E(Y_1)}{4} + E(\frac{(n-2)Y_1}{2(n-2)} + \frac{E(Y_n)}{4}) - \mu \\
+& = \frac{\mu}{4} + \frac{\mu}{2} + \frac{\mu}{4} - \mu \\
+& = 0
+\end{align*}
+
+
+
+\begin{align*}
+B(\hat\mu_2) &=  E(\hat\mu_2) - \mu \\ 
+& = E(\bar Y) - \mu \\
+& = \mu -\mu \\
+& = 0
+\end{align*} 
+
+#### Part b) 
+
+\begin{align*}
+eff(\hat\mu_3, \hat\mu_2) &= \frac{V(\hat\mu_2)}{V(\hat\mu_3)} \\
+&=\frac{V(\frac{1}{4}Y_1 + \frac{Y_2 + \dots + Y_{n-1}}{2(n-2)} + \frac{1}{4}Y_n)}{V(\bar Y)} \\
+&=\frac{\frac{1}{16}V(Y_1)+ \frac{V(Y_2 + \dots + Y_{n-1})}{4(n-2)^2} + \frac{1}{16}V(Y_n)}{V(\bar Y)} \\
+&=\frac{\frac{1}{16}V(Y_1)+ \frac{V(Y_2) + \dots + V(Y_{n-1})}{4(n-2)^2} + \frac{1}{16}V(Y_n)}{V(\bar Y)} \\
+&=\frac{\frac{1}{16}\sigma^2+ \frac{\sigma^2 + \dots + \sigma^2}{4(n-2)^2} + \frac{1}{16}\sigma^2}{\sigma^2/n} \\
+&= n/16 + n^2/(4(n-2)^2) + n/16 \\ 
+&= n/8 + n^2/(4(n-2)^2)
+\end{align*}
+
+
+\begin{align*}
+eff(\hat\mu_3, \hat\mu_1) &= \frac{V(\hat\mu_1)}{V(\hat\mu_3)} \\
+&= \frac{V(\frac{Y_1 + Y_2}{2})}{V(\bar Y)} \\
+&= \frac{\frac{1}{4}(V(Y_1) + V(Y_2))}{\sigma^2/n} \\
+&= \frac{\sigma^2 + \sigma^2}{4\sigma^2/n} \\
+&= \frac{n}{2}
+\end{align*}
+
+
+***************************************************************************
+
+1(b). The following code simulates 10,000 realizations of each of the three estimators $\hat\mu_1$, $\hat\mu_2$ and $\hat\mu_3$ at each of four sample sizes, $n=$ `r 4^(2:5)`.  One of the three estimators is consistent for $\mu$.  Which one? Prove your claim. 
+
+```{r}
+set.seed(4302019)
+nreps <- 10000
+mu_hat1 <- c() # initialization
+mu_hat2 <- c()
+mu_hat3 <- c()
+mu <- 10
+sigma <- 2
+for(i in 2:5){
+  n <- 4 ^ i
+  Y <- rnorm(n * nreps, mean = mu, sd = sigma)
+  YY <- matrix(Y, n, nreps)
+  hat1 <- c(0.5, 0.5, rep(0, n-2))
+  hat2 <- c(0.25, rep(1 / (2 * (n-2)), n-2), 0.25)
+  hat3 <- rep(1 / n, n)
+  tmp1 <- rbind(hat1) %*% YY 
+  # this is matrix multiplication of the 1 x n vector hat1 times the n x nreps matrix YY
+  tmp2 <- rbind(hat2) %*% YY
+  tmp3 <- rbind(hat3) %*% YY
+  mu_hat1 <- rbind(mu_hat1, tmp1)
+  mu_hat2 <- rbind(mu_hat2, tmp2)
+  mu_hat3 <- rbind(mu_hat3, tmp3)
+}
+boxplot(t(rbind(mu_hat1, mu_hat2, mu_hat3)), 
+        names = paste(rep(4 ^ (2:5), 3)), 
+        col = c(rep("blue", 4), rep("magenta", 4), rep("yellow", 4)))
+```
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+****************************************************************************
+
+2. Complete **Exercise 9.8** of the text. \LaTeX\ starter for a $N(\mu,\sigma2)$ density: 
+\[
+\frac{\partial \ln f(y)}{\partial\mu}=\frac{\partial}{\partial\mu}\ln\left[\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left\{\frac{-(y-\mu)^2}{2\sigma^2}\right\}\right]=
+\frac{\partial}{\partial\mu}\left\{-\frac{1}{2}\ln(2\pi\sigma^2)-\frac{(y-\mu)^2}{2\sigma^2}\right\}. 
+\]
+
+
+
+*********************************************************************************
+  
+**Answer:**
+
+#### Part a)
+
+Finding the second partial derivative of $\ln f(y)$ with respect to $\mu$ gives us:
+
+\begin{align*}
+\frac{\partial^2\ln f(y)}{\partial \mu^2}&=-1/\sigma^2
+\end{align*}
+
+
+So,
+
+\begin{align*}
+I(\mu) &= (nE(-(-1/\sigma^2)))^{-1} \\
+&= \sigma^2/n
+\end{align*}
+
+So, $Var(\bar Y) = \sigma^2/2 = I(\mu)$.
+
+#### Part b)
+
+Finding the second partial derivative of $\ln p(y)$ with respect to $\lambda$ gives us:
+
+\begin{align*}
+\frac{\partial^2\ln f(y)}{\partial \lambda^2}&=-y/\lambda^2
+\end{align*}
+
+
+So,
+
+\begin{align*}
+I(\mu) &= (nE(-(-y/\lambda^2)))^{-1} \\
+&= \lambda /n
+\end{align*}
+
+
+So, $Var(\bar Y) = \sigma^2/2 = I(\lambda)$.
+
+*********************************************************************************
+3. Let $Y_1,Y_2,\ldots,Y_n$ denote an iid sample from Uniform($\theta, \theta+1$).  (a) Show that $\hat\theta=\bar Y - 1/2$ is unbiased for $\theta$; and (b) Show that $\hat\theta$ converges in mean square to $\theta$ (and hence is consistent for $\theta$) as $n\to\infty$.  
+
+*********************************************************************************
+
+**Answer:**
+
+
+
+
+*********************************************************************************
+4. Complete **Exercise 9.24** of the text.  
+
+*********************************************************************************
+
+**Answer:**
+
+
+
+********************************************************************************
+
+5. Complete **Exercise 9.26** of the text.  
+
+*********************************************************************************
+
+**Answer:**
+
+
+
+
+********************************************************************************
+
+
+
+**Optional problems:**  Good optional review problems  are 9.15 through 9.25; most have some combination of expectation computation, variance computation, and consistency (usually established by showing mean square consistency). 
+
