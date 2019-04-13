@@ -179,6 +179,21 @@ So, $Var(\bar Y) = \sigma^2/2 = I(\lambda)$.
 
 **Answer:**
 
+#### Part a)
+
+$$\sum^n_{i=1} Y_i^2 \sim \chi^2_n$$
+
+#### Part b)
+
+$$\sum^n_{i=1} Y_i^2/n = W_n$$
+$E(W_n) = n/n = 1$
+
+$V(W_n) = \frac{1}{n^2}(2n) = 2/n$
+
+Since $E(W_n) = 1$ as $n \rightarrow \infty$ and $V(W_n) = 0$ as $n \rightarrow \infty$,
+
+$W_n$ converges by Mean Square to 1 $\implies$ $W_n$ converges in Probability to 1.
+
 
 
 ********************************************************************************
@@ -189,7 +204,9 @@ So, $Var(\bar Y) = \sigma^2/2 = I(\lambda)$.
 
 **Answer:**
 
+![](430hw7_5b.jpg){ width=99% }\
 
+![](430hw7_5a.jpg){ width=99% }\
 
 
 ********************************************************************************
