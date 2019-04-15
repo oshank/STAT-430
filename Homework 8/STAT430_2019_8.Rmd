@@ -1,0 +1,167 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #8: Due Friday, April 19, 2019. 
+========================================================
+
+#### Name: 
+
+*********************************************************************************
+0. We will continue with **Chapter 9** on estimation.     
+
+
+
+1. (a). Suppose $Y_1,Y_2,\ldots,Y_n$ are iid Geometric with probability $\theta,$ where $0<\theta<1$. Show that $\sum_{i=1}^nY_i$ is sufficient for $\theta$. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+***************************************************************************
+
+1(b). Find $\hat\theta_n$, the method of moments estimator of $\theta$.  Is $\hat\theta_n$ a function of the sufficient statistic?
+
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+****************************************************************************
+
+
+\def\prob{\overset{P}{\to}}
+
+1(c). Show that $\hat\theta\prob \theta$ as $n\to\infty$. 
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************
+
+1(d). Use the delta method to show that a large-sample normal approximation for $\hat\theta_n$  is
+\[
+\hat\theta_n\;\mbox{is approximately}\;N\left(\theta, \frac{\theta^2(1-\theta)}{n}\right)=N\left(\theta,\sigma_{\hat\theta}^2\right).
+\]
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************
+  
+
+1(e). Give an estimator $\hat\sigma^2_{\hat\theta}$ for the theoretical variance $\sigma_{\hat\theta}^2$ from the delta method.  Prove that 
+\[
+\frac{\hat\sigma^2_{\hat\theta}}{\sigma_{\hat\theta}^2}\prob 1,
+\]
+then show that 
+\[
+Q_n=\frac{\hat\theta_n-\theta}{\sqrt{\hat\sigma^2_{\hat\theta}}}
+\]
+is an asymptotic pivotal value for $\theta$: a function of $\theta$ and the data that is asymptotically $N(0,1)$.  
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************
+
+1(f). Suppose $\theta=0.2$ and $n=75$. The book parameterizes a geometric random variable as the trial number of the first success (1, 2, 3,\ldots), while `R` parameterizes a geometric random variable as the number of failures before the first success (0,1,2,\ldots).  Both parameterizations are common.   Use the follow bit of `R` code to simulate 10,000 realizations of $\bar Y$ (each the average of 75 Geometric(0.2) random realizations, using the book's parameterization).  
+```{r}
+set.seed(4302019)
+num_realizations <- 10000
+n <- 75
+theta <- 0.2
+Y <- rgeom(n* num_realizations, prob = theta) +1 # add one to go from number of failures to trial number of first success
+YY <- matrix(Y, n, num_realizations)
+Y_bar <- apply(YY, MAR = 2, FUN = "mean") # 1 for rows, 2 for columns
+mean(Y_bar)
+```
+Use the simulated $\bar Y$ values to create 10,000 realizations of $\hat\theta_n$.  Compute the empirical variance of your 10,000 realizations and compare to the theoretical asymptotic variance, $\sigma^2_{\hat\theta}$. Plot the histogram of your 10,000 realizations and add the theoretical pdf of $N\left(\theta, \sigma^2_{\hat\theta}\right)$ using the `dnorm` function in `R`.
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+
+*********************************************************************************************************
+
+
+2. Complete **Exercise 9.37** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************************************
+
+3. If $Y_1,Y_2,\ldots,Y_n$ are iid Exponential($\beta$), show that $\sum_{i=1}^nY_i$ is sufficient for $\beta$, and hence that $\bar Y=n^{-1}\sum_{i=1}^nY_i$ is sufficient for $\beta$. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************************************
+
+4. Complete **Exercise 9.52** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************************************
+
+5. Complete **Exercise 9.70** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+
+
+*********************************************************************************************************
+
+
+
+
+6. Complete **Exercise 9.74(a)** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************************************
+
+
+
+
+
+
+
+
+**Optional problems:**  Any of the sufficiency problems in Section 9.4, except 9.39 (showing sufficiency by checking conditional distribution, instead of by factorization criterion), are good for practicing writing down likelihoods and using the factorization criterion to determine sufficient statistics. 
