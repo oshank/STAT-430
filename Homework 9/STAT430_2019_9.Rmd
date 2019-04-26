@@ -1,0 +1,95 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #9: Due Friday, April 26, 2019. 
+========================================================
+
+#### Name: 
+
+*********************************************************************************
+0. We will continue with **Chapter 9** on estimation.     
+
+
+\def\prob{\overset{P}{\to}}
+
+1. Complete **Exercise 9.80** of the text.
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************************************
+
+2. If $Y_1,Y_2,\ldots,Y_n$ are iid Exponential($\beta$) with $\beta>0$, (a) find the maximum likelihood estimator for $\beta$, $\hat\beta_{MLE}$; (b) show that $\hat\beta_{MLE}\prob\beta$; (c) compute and interpret
+\[
+\frac{1}{-nE\left(\frac{\partial^2\ln f(y\mid\beta)}{\partial\beta^2}\right)};
+\]
+(d) find the maximum likelihood estimator for $1/\beta$; (e) show that your MLE in (d) is consistent for $1/\beta$. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+********************************************************************************************************
+
+3. Consider the V-1 flying bombs example, discussed in class and posted as a handout on Canvas.  Suppose that instead of having data that are $0,1,2,3,4,\ge 5$, we have the following: 229 areas with 0 hits, 211 areas with 1 hit, 93 areas with 2 hits, 35 areas with 3 hits, and 8 areas with 4 or more hits. Modify the example discussed in class to compute (by numerical optimization) the MLE of the parameter $\lambda$ with these censored data. As in the example, plot the log-likelihood and add a vertical line at the value of the MLE. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************************************
+
+4. (a). In the setting of **Exercise 9.52** of the text, find the MLE of $\theta$.  (As discussed in class, use the likelihood, since the log-likelihood is not so useful when the indicators contain both the target parameter(s) and the data.)  Use the following bit of `R` code to simulate a realization of size $n=30$ from the density, with $\theta=2$.  Plot the likelihood (not the log-likelihood) on an interval of values from $\theta=1.9$ to $\theta=2.1$.  Add a red vertical line at the value of the MLE, and a dashed (`lty = 2`) vertical line at the true value of $\theta$. 
+
+```{r}
+set.seed(4302019)
+theta_true <- 2
+n <- 30
+U <- runif(n)
+Y <- theta_true * U ^ (1 / 3)
+```
+
+(b). Repeat the experiment (including re-setting the random number seed) with $n=100$. Plot the likelihood, MLE, and true value, and compare your results with those in part (a). 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************************************
+
+5. (a). Complete **Exercise 9.84 (a)** of the text. (b). Compute the expected value of your MLE. 
+(c). Compute the variance of your MLE by using the formula
+\[
+\frac{1}{-nE\left(\frac{\partial^2\ln f(y\mid\theta)}{\partial\theta^2}\right)}.
+\]
+(d). Check your answer in (c) by directly computing $V(\hat\theta_{MLE})$ in (a). 
+
+*******************************************************************************************************
+  
+**Answer:**
+
+
+
+
+
+*********************************************************************************************************
+
+
+
+
+
+**Optional problems:**  Any of the MLE problems in Section 9.7 are good for practicing writing down and maximizing likelihoods.  (Don't worry about MVUE in some of those problems.)  Computing the variance of MLE by the inverse information (as in 2(c) and 5(c) above) is not covered in 9.7 of the book.  It is covered briefly and combined with the delta method in 9.8. 
+
