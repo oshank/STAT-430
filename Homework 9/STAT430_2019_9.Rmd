@@ -8,7 +8,7 @@ output:
 STAT430 Homework #9: Due Friday, April 26, 2019. 
 ========================================================
 
-#### Name: 
+#### Name: Oliver Shanklin
 
 *********************************************************************************
 0. We will continue with **Chapter 9** on estimation.     
@@ -23,6 +23,8 @@ STAT430 Homework #9: Due Friday, April 26, 2019.
 **Answer:**
 
 
+![](st430hw9_1.jpg){ width=50% }\
+
 
 *********************************************************************************************************
 
@@ -36,6 +38,8 @@ STAT430 Homework #9: Due Friday, April 26, 2019.
   
 **Answer:**
 
+![](st430hw9_2a.jpg){ width=50% }\
+![](st430hw9_2b.jpg){ width=99% }\
 
 
 ********************************************************************************************************
@@ -45,6 +49,30 @@ STAT430 Homework #9: Due Friday, April 26, 2019.
 *********************************************************************************
   
 **Answer:**
+
+```{r}
+Log_Likelihood <- function(lambda){
+  LL <- 229 * log(dpois(0, lambda)) +
+    211 * log(dpois(1, lambda)) + 
+    93 * log(dpois(2, lambda)) + 
+    35 * log(dpois(3, lambda)) + 
+    8 * log(dpois(4, lambda)) + 
+    log(1 - ppois(4, lambda))
+  return(LL)
+}
+
+fit <- optimize(Log_Likelihood, c(0, 100), maximum = TRUE)
+fit
+lambda_mle <- fit$maximum
+lambda <- seq(from = 0.1, to = 2.5, length = 1000) # fine grid for plot
+plot(lambda, Log_Likelihood(lambda), type = "l", lwd = 3, 
+     xlab = expression(lambda), ylab = expression(ln(L(lambda))))
+abline(v = lambda_mle, col = "red", lwd = 2)
+
+
+
+```
+
 
 
 
@@ -66,6 +94,39 @@ Y <- theta_true * U ^ (1 / 3)
   
 **Answer:**
 
+```{r error=FALSE}
+
+set.seed(4302019)
+theta_true <- 2
+n <- 30
+U <- runif(n)
+Y <- theta_true * U ^ (1 / 3)
+
+# Part a)
+
+theta <- seq(1.9, 2.1, length = 1000)
+L <- (1/theta^(3*n))* (max(Y) <= theta)
+plot(theta, L, type="l")
+abline(v=max(Y),col="blue")
+abline(v=2, col="red")
+
+
+# Part b)
+set.seed(4302019)
+theta_true <- 2
+n <- 100
+U <- runif(n)
+Y <- theta_true * U ^ (1 / 3)
+
+theta <- seq(1.9, 2.1, length = 1000)
+L <- (1/theta^(3*n))* (max(Y) <= theta)
+plot(theta, L, type="l")
+abline(v=max(Y),col="blue")
+abline(v=2, col="red")
+
+
+```
+
 
 
 *********************************************************************************************************
@@ -81,7 +142,7 @@ Y <- theta_true * U ^ (1 / 3)
   
 **Answer:**
 
-
+![](st430hw9_5.jpg){ width=99% }\
 
 
 

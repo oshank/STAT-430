@@ -1,0 +1,139 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #10: Due Friday, May 3, 2019. 
+========================================================
+
+#### Name: 
+
+*********************************************************************************
+\newcommand{\prob}{\overset{P}{\to}}
+
+0. We finish **Chapter 9** on estimation and start **Chapter 10** on hypothesis testing.     
+
+
+1. Each of the following sequences converges in probability to something.  Identify the limit, with a brief justification and any necessary conditions.  
+
+For example: Suppose $Y_1,Y_2,\ldots,Y_n$ are iid $N(\mu,\sigma^2)$.  Then $\bar Y\prob\mu$ by the law of large numbers (LLN) and $1/\bar Y\prob 1/\mu$ by the continuous function result, provided $\mu\ne 0$. 
+
+(1a). $Y_1,Y_2,\ldots,Y_n$ are iid $N(\mu,\sigma^2)$.  What is the limit in probability of 
+\[
+\frac{\bar Y - 3}{\bar Y + 2}?
+\]
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************
+
+
+(1b). $Y_1,Y_2,\ldots,Y_n$ are iid Exponential$(\beta)$.  What is the limit in probability of 
+\[
+\exp\left(\frac{-\bar Y}{\beta}\right)?
+\]
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************
+
+
+(1c). $Y_1,Y_2,\ldots,Y_n$ are iid Exponential$(\beta)$.  What is the limit in probability of 
+\[
+\frac{1}{n}\sum_{i=1}^n\exp\left(\frac{-Y_i}{\beta}\right)?
+\]
+Check your answer via simulation with the following `R` code: 
+```{r}
+beta <- 5 # mean of exponential, but R uses rate parameterization
+set.seed(4302019)
+y <- rexp(1000, rate = 1 / beta)
+mean(exp(-y / beta))
+```
+Does the choice of $\beta$ in the code matter?
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************
+
+(1d). $Y_1,Y_2,\ldots,Y_n$ are iid Uniform$(0,\theta)$.  What is the limit in probability of
+\[
+\left(\frac{1}{n}\sum_{i=1}^nY_i\right)^k
+\]
+for $k=1, 2, 3, \ldots$?  
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************
+
+(1e). $Y_1,Y_2,\ldots,Y_n$ are iid Uniform$(0,\theta)$.  What is the limit in probability of
+\[
+\frac{1}{n}\sum_{i=1}^nY_i^k
+\]
+for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use `Y <- runif(10000, min = 0, max = 2)`) for $k =1,2,3,4$.
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************************************
+
+2. Complete **Exercise 10.2** of the text.  Use `R` for the probability calculations. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************************************
+
+
+3. Complete **Exercise 10.3** of the text.  Use `R` for the probability calculations. 
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+********************************************************************************************************
+
+4. Consider **Exercise 10.20** in the text.  State the **R**esearch question in the context of the problem; the corresponding **A**lternative hypothesis in terms of model parameters;  the **N**ull hypothesis that will be our default in the absence of strong evidence to the contrary; the **T**est statistic used to compare the competing hypotheses; the **D**istribution of the test statistic under the null hypothesis; the statistical **R**esults, obtained by specifying a rejection region with significance level $\alpha-0.01$; and the **C**onclusion in the context of this problem. 
+
+*********************************************************************************
+  
+**Answer:**
+
+ 
+
+*********************************************************************************************************
+
+5. Consider **Exercise 10.21** in the text.  State the **R**esearch question in the context of the problem; the corresponding **A**lternative hypothesis in terms of model parameters;  the **N**ull hypothesis that will be our default in the absence of strong evidence to the contrary; the **T**est statistic used to compare the competing hypotheses; the **D**istribution of the test statistic under the null hypothesis; the statistical **R**esults, obtained by specifying a rejection region with significance level $\alpha-0.01$; and the **C**onclusion in the context of this problem. 
+
+*********************************************************************************
+  
+**Answer:**
+
+  
+*********************************************************************************
+
+**Optional problems:**  We will have another homework on hypothesis testing, so there will be additional practice. Look through the problems in 10.2, which focus on definitions and are good to review, and the problems in 10.3, which focus on large-sample hypothesis tests (some of the most common in practice).   
+
