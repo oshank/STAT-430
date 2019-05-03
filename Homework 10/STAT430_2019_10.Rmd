@@ -70,6 +70,9 @@ Does the choice of $\beta$ in the code matter?
   
 **Answer:**
 
+$$E\left[\exp\left(\frac{-Y_i}{\beta}\right)\right] = \int_0^\infty \exp\left(\frac{-Y_i}{\beta}\right)f(y)dy = \int_0^\infty \exp\left(\frac{-Y_i}{\beta}\right)\left(\frac{1}{\beta}\exp\left(\frac{-Y_i}{\beta}\right)\right)dy$$
+
+$$ = \frac{1}{2}\left(\frac{2}{\beta}\int_0^\infty exp\left(\frac{-2y}{\beta}\right)dy\right) = \frac{1}{2}(1) = 1/2$$
 
 
 
@@ -85,7 +88,9 @@ for $k=1, 2, 3, \ldots$?
   
 **Answer:**
 
+This is just the mean of Uniform from 0 to $\theta$ to the k, so
 
+$$\left(\frac{\theta}{2}\right)^k$$
 
 
 
@@ -103,7 +108,9 @@ for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use 
 **Answer:**
 
 
+This is the $k^{th}$ Moment of the Uniform from 0 to $\theta$, so
 
+$$E\left[Y_i^k\right] = \int_0^\theta y^k/\theta dy = \frac{\theta^k}{k+1}$$
 
 
 *********************************************************************************************************
@@ -173,20 +180,26 @@ $$\beta = P(Y>11, p=0.4) = \sum_{i=12}^{20}{20\choose i}(0.4)^i(0.6)^{20-i} = 0.
 **Answer:**
 
 
-### R: 
+### R:
+Is the manufacturer's claim of an average of at least 64 true?
 
 ### A:
+$H_a$: $\mu < 64$
 
 ### N:
+$H_0$: $\mu = 64$
 
 ### T:
+$Z = \frac{\bar X - \mu}{S/\sqrt n}$
 
 ### D:
+$Z \sim N(0,1)$
 
 ### R:
+$-1.768 > -2.33 = Z_{\alpha = 0.01}$
 
 ### C:
- 
+So we would fail to reject $H_0$ which means that the statement made by the manufacturer could be true.
 
 *********************************************************************************************************
 
@@ -197,19 +210,25 @@ $$\beta = P(Y>11, p=0.4) = \sum_{i=12}^{20}{20\choose i}(0.4)^i(0.6)^{20-i} = 0.
 **Answer:**
 
 ### R: 
+Do the two types of soil differ in average shear strength?
 
 ### A:
+$H_a$: $\mu_1 \ne \mu_2$
 
 ### N:
+$H_0$: $\mu_1 = \mu_2$
 
 ### T:
+$Z = \frac{\mu_1 - \mu_2}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} = 3.65$
 
 ### D:
+$Z \sim N(0,1)$
 
 ### R:
+$3.65 > 2.58 = Z_{\alpha/2}$
 
 ### C:
-
+So we would say that these two soils differ in shear strength and we would reject $H_0$.
 
   
 *********************************************************************************
