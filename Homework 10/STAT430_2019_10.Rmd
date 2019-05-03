@@ -30,6 +30,8 @@ For example: Suppose $Y_1,Y_2,\ldots,Y_n$ are iid $N(\mu,\sigma^2)$.  Then $\bar
   
 **Answer:**
 
+$$\frac{\bar Y -3}{\bar Y + 2} \implies \frac{\mu - 3}{\mu + 2}$$
+
 
 *********************************************************************************
 
@@ -42,6 +44,9 @@ For example: Suppose $Y_1,Y_2,\ldots,Y_n$ are iid $N(\mu,\sigma^2)$.  Then $\bar
 *********************************************************************************
   
 **Answer:**
+
+
+$$\exp\left(\frac{-\bar Y}{\beta}\right) \implies \exp\left(\frac{-\beta}{\beta}\right) = \exp(-1)$$
 
 
 *********************************************************************************
@@ -66,6 +71,8 @@ Does the choice of $\beta$ in the code matter?
 **Answer:**
 
 
+
+
 *********************************************************************************
 
 (1d). $Y_1,Y_2,\ldots,Y_n$ are iid Uniform$(0,\theta)$.  What is the limit in probability of
@@ -77,6 +84,8 @@ for $k=1, 2, 3, \ldots$?
 *********************************************************************************
   
 **Answer:**
+
+
 
 
 
@@ -94,6 +103,9 @@ for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use 
 **Answer:**
 
 
+
+
+
 *********************************************************************************************************
 
 2. Complete **Exercise 10.2** of the text.  Use `R` for the probability calculations. 
@@ -101,6 +113,27 @@ for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use 
 *********************************************************************************
   
 **Answer:**
+
+
+#### a)
+
+Type I error is when $Y$ is in the Rejection Region when $H_o$ is true.
+
+#### b)
+
+$$\alpha = P(Y \le 12,p= 0.8) = \sum_{i=0}^{12}{20\choose i}(0.8)^i(0.2)^{20-i} = 0.032$$
+
+#### c)
+
+Type II error is when $Y>12$ but $H_o$ is false.
+
+#### d)
+
+$$\beta = P(Y>12, p=0.6) = \sum_{i=13}^{20}{20\choose i}(0.6)^i(0.4)^{20-i} = 0.4159$$
+
+#### e)
+
+$$\beta = P(Y>12, p=0.4) = \sum_{i=13}^{20}{20\choose i}(0.4)^i(0.6)^{20-i} = 0.021$$
 
 
 *********************************************************************************************************
@@ -113,6 +146,23 @@ for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use 
   
 **Answer:**
 
+#### a)
+
+$$0.01 = \sum_{i=0}^{c}{20\choose i}(0.8)^i(0.2)^{20-i}$$
+
+So using Wolfram to solve, $c=11$.
+
+
+#### b)
+
+$$\beta = P(Y>11, p=0.6) = \sum_{i=12}^{20}{20\choose i}(0.6)^i(0.4)^{20-i} = 0.596$$
+
+#### c)
+
+
+$$\beta = P(Y>11, p=0.4) = \sum_{i=12}^{20}{20\choose i}(0.4)^i(0.6)^{20-i} = 0.057$$
+
+
 
 ********************************************************************************************************
 
@@ -122,6 +172,20 @@ for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use 
   
 **Answer:**
 
+
+### R: 
+
+### A:
+
+### N:
+
+### T:
+
+### D:
+
+### R:
+
+### C:
  
 
 *********************************************************************************************************
@@ -131,6 +195,21 @@ for $k=1, 2, 3, \ldots$?  Check your answer via simulation when $\theta=2$ (use 
 *********************************************************************************
   
 **Answer:**
+
+### R: 
+
+### A:
+
+### N:
+
+### T:
+
+### D:
+
+### R:
+
+### C:
+
 
   
 *********************************************************************************
