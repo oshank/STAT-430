@@ -1,0 +1,105 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+STAT430 Homework #11: Due Saturday, May 11, 2019. 
+========================================================
+
+#### Name: 
+
+*********************************************************************************
+\newcommand{\prob}{\overset{P}{\to}}
+
+0. We finish **Chapter 10** on hypothesis testing.     
+
+
+1. Complete **Exercise 10.23** of the text. For part (c), give a complete **RANTDRC** test of the appropriate hypothesis.  
+
+*********************************************************************************
+  
+**Answer:**
+
+
+*********************************************************************************
+
+2. Complete **Exercise 10.24** of the text, giving a complete **RANTDRC** test of the appropriate hypothesis.  
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************
+
+
+3. Complete **Exercise 10.33** of the text, giving a complete **RANTDRC** test of the appropriate hypothesis.  
+
+
+*********************************************************************************
+  
+**Answer:**
+
+   
+*********************************************************************************
+
+4. Complete **Exercise 10.38** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+************************************************************************************************************************************
+
+5. Complete **Exercise 10.45** of the text. 
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************************************
+
+6. Complete **Exercise 10.50** of the text.  
+
+*********************************************************************************
+  
+**Answer:**
+
+
+
+*********************************************************************************************************
+
+
+7. Complete **Exercise 10.54** of the text.  
+
+
+*********************************************************************************
+  
+**Answer:**
+
+
+************************************************************************************************
+   
+
+8. Complete **Exercise 10.106** of the text. 
+
+
+******************************************************************************************
+
+**Answer:**
+
+
+************************************************************************************************
+   
+
+
+**Optional problems:**   We have touched on nearly all of Chapter 10, especially sections 10.2, 10.3, 10.4, 10.5, 10.6, and 10.11.  Any of the (non-applet) exercises in those sections are good to review.  Less emphasis on the exact tests in 10.8 and 10.9, though these are just applications of the normal-theory distributions that we studied in the first part of the course and applied in the confidence interval section.  
+
