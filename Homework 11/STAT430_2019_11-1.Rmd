@@ -8,7 +8,7 @@ output:
 STAT430 Homework #11: Due Saturday, May 11, 2019. 
 ========================================================
 
-#### Name: 
+#### Name: Oliver Shanklin
 
 *********************************************************************************
 \newcommand{\prob}{\overset{P}{\to}}
@@ -22,6 +22,32 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+#### a)
+
+$H_a : \mu_1 \ne \mu_2$
+
+$H_o : \mu_1 = \mu_2$
+
+#### b)
+
+This would be a two tailed test because this a difference.
+
+### c)
+
+**R**: Do the ranges of deer populations differ?
+
+**A**: $H_a : \mu_1 \ne \mu_2$
+
+**N**: $H_o : \mu_1 = \mu_2$
+
+**T**: $Z = \frac{\mu_1 - \mu_2}{\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}}} = -0.95358$
+
+**D**: $Z \sim N(0,1)$ where $\pm Z_{\alpha/2} = \pm1.645$
+
+**R**: $Z = -0.95358 > -1.645$
+
+**C**: We sould Fail to Reject $H_o$, so the deer do not travel significantly different differences.
+
 
 *********************************************************************************
 
@@ -32,6 +58,19 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+**R**: Is the percentage reported too high?
+
+**A**: $H_a : p < 0.15$
+
+**N**: $H_o : p = 0.15$
+
+**T**: $Z = \frac{\hat p - p}{\sqrt{\frac{\hat p(1- \hat p)}{n}}} = \frac{0.13-0.15}{\sqrt{\frac{.13(.87)}{100}}} = -0.5947$
+
+**D**: $Z\sim N(0,1)$ where $Z_{\alpha/2} = -1.645$
+
+**R**: $-0.5947 > -1.645$
+
+**C**: We would Fail to Reject $H_o$.
 
 
 *********************************************************************************
@@ -44,6 +83,19 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+**R**: Republicans support it more. 
+
+**A**: $H_a: p_1 > p_2$
+
+**N**: $H_o: p_1 = p_2$
+
+**T**: $Z = \frac{\hat p_1 - \hat p_2}{\sqrt{\frac{\hat p_1(1-\hat p_1)}{n}+ \frac{\hat p_2(1-\hat p_2)}{n}}} = 1.504$
+
+**D**: $Z \sim N(0,1)$ where $Z_\alpha = 1.645$
+
+**R**: $1.504 < 1.645$
+
+**C**: So we would Fail to Reject $H_o$.
    
 *********************************************************************************
 
@@ -53,9 +105,16 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+$\beta = P(T \notin RR, H_o is false)$
+
+$P\left(\frac{\bar X - \mu_o}{s/\sqrt{n}} \ge -2.33\right)$
+$= P\left({\bar X } \ge \mu_o - 2.33(s/\sqrt{n})\right)$
+$= P\left({\bar X } \ge 61.3752\right)$
+$= P\left(\frac{\bar X - 60}{\sqrt{S^2/n}} \ge \frac{61.37 - 60}{\sqrt{S^2/n}}\right)$
+$= P\left({Z } \ge 1.21\right) = 0.1132$
 
 
-************************************************************************************************************************************
+*********************************************************************************
 
 5. Complete **Exercise 10.45** of the text. 
 
@@ -63,9 +122,20 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+$\left[(\mu_1 - \mu_2) \pm Z_{0.005}\sqrt{\frac{S_1^2}{n_1}+\frac{S_2^2}{n_2}} \right]$
 
+#### a)
 
-*********************************************************************************************************
+After computing the interval, $0$ is not in the interval.
+
+#### b)
+
+So $H_o$ would be rejected because the target is $\mu_1 - \mu_2 =0$.
+
+#### c)
+
+We have the same conclusion.
+*********************************************************************************
 
 6. Complete **Exercise 10.50** of the text.  
 
@@ -73,9 +143,21 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+$\hat p = 0.58$, $sd = .11$, $p=0.6$
 
+$H_a: p < 0.6$
 
-*********************************************************************************************************
+$H_o: p = 0.6$
+
+$T=\frac{0.58 -0.6}{\sqrt{0.11^2/120}} = -1.9917 \sim N(0,1)$
+
+```{r}
+pnorm(-1.9917)
+```
+
+So we would reject $H_o$ at $\alpha = 0.1$ and say it is unprofitable.
+
+*********************************************************************************
 
 
 7. Complete **Exercise 10.54** of the text.  
@@ -85,19 +167,68 @@ STAT430 Homework #11: Due Saturday, May 11, 2019.
   
 **Answer:**
 
+$p = 0.85$, $\hat p = 0.96$, $n = 300$, $\alpha = 0.01$
 
-************************************************************************************************
+$$Z = \frac{\hat p - p}{\sqrt{\frac{\hat p}{1 - \hat p}/n}} \sim N(0,1)$$
+
+```{r}
+pnorm(9.7227)
+```
+
+Since the p-value is so small, we would reject $H_o$ in almost every situtaion. So the reported proportion is too low.
+
+*********************************************************************************
    
 
 8. Complete **Exercise 10.106** of the text. 
 
 
-******************************************************************************************
+*********************************************************************************
 
 **Answer:**
 
+$\hat \theta_1 = 76/200$
 
-************************************************************************************************
+$\hat \theta_2 = 53/200$
+
+$\hat \theta_3 = 59/200$
+
+$\hat \theta_4 = 48/200$
+
+$\hat \theta_0 = 236/800$
+
+$H_o: \theta_1 = \theta_2 = \theta_3 = \theta_4 = \theta_0$
+
+$H_a: \theta_1, \theta_2, \theta_3, \theta_4$, at least one is different.
+
+
+$T = -2ln(LR) \sim \chi^2_3$
+
+
+Max Likelihood under $H_0$ =  $\prod_{i=1}^4{ 200 \choose y_i} \theta_0^{y_i} (1-\theta_0)^{200-y_i}$
+
+```{r}
+ML1 <- dbinom(76,200,236/800)*dbinom(53,200,236/800)*dbinom(59,200,236/800)*dbinom(48,200,236/800)
+```
+
+Max Likelihood = $\prod_{i=1}^4{ 200 \choose y_i} \theta_i^{y_i} (1-\theta_i)^{200-y_i}$
+
+```{r}
+ML2 <- dbinom(76,200,76/200)*dbinom(53,200,53/200)*dbinom(59,200,59/200)*dbinom(48,200,48/200)
+```
+
+```{r}
+Tstat <- -2*log(ML1/ML2)
+
+Tstat
+
+(qchisq(0.95, 3)<Tstat)
+```
+
+Since $T$ is larger than $\alpha = 0.05$ for a $\chi^2_3$ we reject $H_0$ and say that at least one ward votes differently.
+
+
+*********************************************************************************
    
 
 
